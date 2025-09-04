@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananthakrishnan P S - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --amber-500: #f59e0b;
+            --amber-600: #d97706;
+            --gray-200: #e5e7eb;
+            --gray-700: #374151;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Common Styles */
+        .section {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        .divider {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(to right, transparent, var(--amber-500), transparent);
+            margin: 2.5rem auto;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .icon-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Navigation */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.25rem 0;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--gray-200);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--amber-500);
+        }
+
+        .nav-link.active {
+            color: var(--amber-500);
+        }
+
+        /* Home Section - Fixed Name Layout */
+        .home-section {
+            padding-top: 5rem;
+            padding-bottom: 6rem;
+            text-align: center;
+        }
+
+        .home-intro {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--amber-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .home-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
+            white-space: nowrap; /* Prevent name from breaking */
+        }
+
+        .home-subtitle {
+            font-size: 1.125rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 1rem;
+        }
+
+        .home-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--amber-500);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--amber-600);
+            transform: scale(1.03);
+        }
+
+        /* About Section */
+        .about-description {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 70rem;
+            margin-top: 1rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .about-grid {
+            display: grid;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .about-subtitle {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .about-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .about-item-title {
+            font-weight: 600;
+        }
+
+        .about-item-date {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .vertical-divider {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--amber-500), transparent);
+            transform: translateX(-50%);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            margin-top: 3rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .skill-category {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            background-color: rgba(245, 158, 11, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .skill-category-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--amber-500);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0;
+        }
+
+        .skill-item::before {
+            content: "•";
+            color: var(--amber-500);
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+        }
+
+        @media (max-width: 767px) {
+            .vertical-divider {
+                display: none;
+            }
+            
+            .text-right {
+                text-align: left;
+            }
+            
+            /* Responsive fix for name on mobile */
+            .home-title {
+                white-space: normal;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr 1px 1fr;
+                gap: 0;
+            }
+            
+            .vertical-divider {
+                position: relative;
+                left: auto;
+                top: auto;
+                bottom: auto;
+                transform: none;
+                margin: 0 2.5rem;
+                height: 100%;
+            }
+            
+            .about-column:first-child {
+                padding-right: 1.25rem;
+            }
+            
+            .about-column:last-child {
+                padding-left: 1.25rem;
+            }
+            
+            .home-title {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .home-title {
+                font-size: 5rem;
+            }
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: var(--black);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.2);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            z-index: 2;
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-blurb {
+            color: rgba(0, 0, 0, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-toggle {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            background-color: var(--black);
+            color: var(--amber-500);
+            display: grid;
+            place-items: center;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 3;
+        }
+
+        .project-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .project-details {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            padding: 2rem;
+        }
+
+        .project-details.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .project-content {
+            background-color: var(--white);
+            color: var(--black);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-content-inner {
+            overflow-y: auto;
+            padding-right: 5px;
+            flex: 1;
+            scrollbar-width: none;
+        }
+
+        .project-content-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .project-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .project-list li {
+            font-size: 1rem;
+            color: rgba(0, 0, 0, 0.9);
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--amber-500);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .project-image {
+            width: 100%;
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            background-color: #f5f5f5;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: var(--black);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: var(--amber-500);
+            transform: rotate(90deg);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding-bottom: 6rem;
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-address {
+            margin-top: 1.5rem;
+        }
+
+        .contact-name {
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            white-space: nowrap; /* Keep contact name on one line */
+        }
+
+        .contact-address p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 2.5rem;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(245, 158, 11, 0.6);
+            color: var(--amber-500);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            background-color: var(--amber-500);
+            color: var(--black);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            margin-top: 2.5rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* New Contact Form Styles */
+        .contact-form-container {
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--amber-500);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-form {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .form-full-width {
+                grid-column: span 2;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--gray-200);
+        }
+
+        .form-input, .form-textarea {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(0, 0, 0, 0.3);
+            color: var(--white);
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--amber-500);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-button {
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            background-color: var(--amber-500);
+            color: var(--black);
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            justify-self: left;
+            margin-top: 1rem;
+        }
+
+        .form-button:hover {
+            background-color: var(--amber-600);
+            transform: translateY(-2px);
+        }
+
+        @media (min-width: 768px) {
+            .contact-section {
+                padding-top: 4rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .project-details {
+                padding: 1rem;
+            }
+            
+            .project-content {
+                padding: 1.5rem;
+                max-height: 85vh;
+            }
+            
+            .project-card {
+                min-height: 180px;
+            }
+        }
+
+        /* Disable scroll when project overlay is active */
+        body.no-scroll {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="#home" class="nav-link active">HOME</a></li>
+                <li><a href="#about" class="nav-link">ABOUT</a></li>
+                <li><a href="#projects" class="nav-link">PROJECTS</a></li>
+                <li><a href="#contact" class="nav-link">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="section home-section">
+        <div class="home-content">
+            <p class="home-intro">Hai I'm</p>
+            <h1 class="home-title">ANANTHAKRISHNAN P S</h1>
+            <h2 class="home-subtitle">AFC Engineer · Mechanical Engineer · CAD Designer</h2>
+            
+            <div class="home-buttons">
+                <a href="#contact" class="btn btn-primary">Contact Me</a>
+                <a href="resume.pdf" download class="btn btn-primary">Download CV</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <h2 class="section-title">ABOUT ME</h2>
+        <p class="about-description">
+            Experienced AFC Engineer with over 4 years in Automated Fare Collection (AFC) systems for metro rail projects. Skilled in
+            equipment installation, preventive & corrective maintenance, troubleshooting, and technical documentation. Strong background
+            in mechanical engineering with CAD design and problem-solving. Focused on maintenance planning, resource management, and
+            operational excellence to deliver reliable results.
+        </p>
+
+        <div class="about-grid">
+            <div class="about-column">
+                <h3 class="about-subtitle">EDUCATION</h3>
+                <ul class="about-list">
+                    <li>
+                        <p class="about-item-title">B.Tech in Mechanical Engineering</p>
+                        <p class="about-item-date">2018 – 2021</p>
+                    </li>
+                    <li>
+                        <p class="about-item-title">Diploma in Mechanical Engineering</p>
+                        <p class="about-item-date">2015 – 2018</p>
+                    </li>
+                    <li>
+                        <p class="about-item-title">THSLC</p>
+                        <p class="about-item-date">2015</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Vertical Divider -->
+            <div class="vertical-divider"></div>
+
+            <div class="about-column text-right">
+                <h3 class="about-subtitle">EXPERIENCE</h3>
+                <ul class="about-list">
+                    <li>
+                        <p class="about-item-title">Paycraft Solution – Kochi Metro Rail Ltd</p>
+                        <p class="about-item-date">AFC Engineer - 1 · Jan 2025 – Present</p>
+                    </li>
+                    <li>
+                        <p class="about-item-title">AGS Transact Technologies – Kochi Metro Rail Ltd</p>
+                        <p class="about-item-date">Executive Engineer · Oct 2021 – Jan 2025</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="skills-section">
+            <h3 class="about-subtitle">SKILLS</h3>
+            <div class="skills-grid">
+                <!-- Personal Skills -->
+                <div class="skill-category">
+                    <h4 class="skill-category-title">PERSONAL SKILLS</h4>
+                    <ul class="skills-list">
+                        <li class="skill-item">Problem-Solving</li>
+                        <li class="skill-item">Team Leadership</li>
+                        <li class="skill-item">Attention to Detail</li>
+                        <li class="skill-item">Project Management</li>
+                        <li class="skill-item">Communication</li>
+                        <li class="skill-item">Critical Thinking</li>
+                    </ul>
+                </div>
+
+                <!-- Technical Skills -->
+                <div class="skill-category">
+                    <h4 class="skill-category-title">TECHNICAL SKILLS</h4>
+                    <ul class="skills-list">
+                        <li class="skill-item">AutoCAD</li>
+                        <li class="skill-item">Mechanical Design</li>
+                        <li class="skill-item">CAD Modeling</li>
+                        <li class="skill-item">Preventive & Corrective Maintenance</li>
+                        <li class="skill-item">Troubleshooting & Diagnostics</li>
+                        <li class="skill-item">Technical Documentation</li>
+                    </ul>
+                </div>
+
+                <!-- Office Tools -->
+                <div class="skill-category">
+                    <h4 class="skill-category-title">OFFICE TOOLS</h4>
+                    <ul class="skills-list">
+                        <li class="skill-item">Microsoft excel</li>
+                        <li class="skill-item">Microsoft word</li>
+                        <li class="skill-item">Microsoft office</li>
+                        <li class="skill-item">Inventory Management</li>
+                        <li class="skill-item">Maintenance Planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+        <h2 class="section-title">PROJECTS</h2>
+
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-info">
+                        <h3 class="project-title">STAND FOR MOUNTING CAMERA SCANNER</h3>
+                        <p class="project-blurb">Designed and fabricated mounting stand for camera scanner used in Automatic Fare Collection (AFC) gates.</p>
+                    </div>
+                    <button class="project-toggle" aria-label="Toggle details" data-project="1">
+                        ↓
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-info">
+                        <h3 class="project-title">PROTOTYPE FOR FIXING CARD MACHINE IN TVM</h3>
+                        <p class="project-blurb">Custom bracket for card swiping machine integration inside Ticket Vending Machine to enable non-cash payments.</p>
+                    </div>
+                    <button class="project-toggle" aria-label="Toggle details" data-project="2">
+                        ↓
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-info">
+                        <h3 class="project-title">AUTOMATIC GATE SPARE – RE-ENGINEERED</h3>
+                        <p class="project-blurb">Reverse-engineered a non-local spare for AFC automatic gate with improved design for manufacturability.</p>
+                    </div>
+                    <button class="project-toggle" aria-label="Toggle details" data-project="3">
+                        ↓
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-info">
+                        <h3 class="project-title">PRELIMINARY 3D CAD – BTECH PROJECT</h3>
+                        <p class="project-blurb">Led the preliminary CAD modeling for B.Tech final project; design submitted for review.</p>
+                    </div>
+                    <button class="project-toggle" aria-label="Toggle details" data-project="4">
+                        ↓
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Details Overlays -->
+        <div class="project-details" id="project-details-1">
+            <div class="project-content">
+                <button class="close-btn" aria-label="Close details">
+                    ×
+                </button>
+                <div class="project-content-inner">
+                    <h3 class="project-title">STAND FOR MOUNTING CAMERA SCANNER</h3>
+                    <p class="project-blurb">Designed and fabricated mounting stand for camera scanner used in Automatic Fare Collection (AFC) gates.</p>
+                    
+                    <ul class="project-list">
+                        <li>Designed 2 models for fixing camera scanner to the automatic fare collection gate .</li>
+                        <li>One work as an attachment to the pre existing stand and one is designed as entirely new one.</li>
+                        <li>Two option submitted to client and fabricated the client approved design.</li>
+                        <li>Prototype built and tested on gate; client approved and moved to bulk production.</li>
+                    </ul>
+                    <div class="project-image">
+                        <img src="assets\images\project1.jpg" alt="Project image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-details" id="project-details-2">
+            <div class="project-content">
+                <button class="close-btn" aria-label="Close details">
+                    ×
+                </button>
+                <div class="project-content-inner">
+                    <h3 class="project-title">PROTOTYPE FOR FIXING CARD MACHINE IN TVM</h3>
+                    <p class="project-blurb">Custom bracket for card swiping machine integration inside Ticket Vending Machine to enable non-cash payments.</p>
+                    
+                    <ul class="project-list">
+                        <li>Designed, prototyped for testing, and submitted for client approval.</li>
+                    </ul>
+                    <div class="project-image">
+                        <img src="assets\images\project2.jpg" alt="Project image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-details" id="project-details-3">
+            <div class="project-content">
+                <button class="close-btn" aria-label="Close details">
+                    ×
+                </button>
+                <div class="project-content-inner">
+                    <h3 class="project-title">AUTOMATIC GATE SPARE – RE-ENGINEERED</h3>
+                    <p class="project-blurb">Reverse-engineered a non-local spare for AFC automatic gate with improved design for manufacturability.</p>
+                    
+                    <ul class="project-list">
+                        <li>Replicated pre-existing part with enhancements.</li>
+                        <li>Made the design for manufacturing the damaged part and made prototypes and tested and finalized the design for bulk production of the part.</li>
+                    </ul>
+                    <div class="project-image">
+                        <img src="assets\images\project3.jpg" alt="Project image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-details" id="project-details-4">
+            <div class="project-content">
+                <button class="close-btn" aria-label="Close details">
+                    ×
+                </button>
+                <div class="project-content-inner">
+                    <h3 class="project-title">PRELIMINARY 3D CAD – BTECH PROJECT</h3>
+                    <p class="project-blurb">Led the preliminary CAD modeling for B.Tech final project; design submitted for review.</p>
+                    
+                    <ul class="project-list">
+                        <li>Preliminary design for the project was made and submitted for review.</li>
+                        <li>Due to the pandemic fabrication was not done for this.</li>
+                    </ul>
+                    <div class="project-image">
+                        <img src="assets\images\project4.jpg" alt="Project image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <h2 class="section-title">CONTACT</h2>
+
+        <div class="contact-address">
+            <p class="contact-name">ANANTHAKRISHNAN P S</p>
+            <p>PALAKKASSERY HOUSE</p>
+            <p>PO ANAPUZHA, KODUNGALLUR</p>
+            <p>THRISSUR</p>
+            <p>KERALA – 680667</p>
+            <p>INDIA</p>
+        </div>
+
+        <div class="contact-buttons">
+            <a href="mailto:ananthups445@gmail.com" class="contact-btn">
+                <span>GMAIL</span>
+            </a>
+            <a href="https://www.linkedin.com/in/ananthakrishnan-p-s-325118147" target="_blank" class="contact-btn">
+                <span>LINKEDIN</span>
+            </a>
+            <a href="https://wa.me/919567895285" target="_blank" class="contact-btn">
+                <span>WHATSAPP</span>
+            </a>
+            <a href="tel:+919567895285" class="contact-btn">
+                <span>PHONE</span>
+            </a>
+        </div>
+
+        <!-- New Contact Form Section -->
+        <div class="contact-form-container">
+            <h3 class="form-title">SEND ME A MESSAGE</h3>
+            <form class="contact-form" action="https://formsubmit.co/ananthups445@gmail.com" method="POST">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_subject" value="New message from your portfolio">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="form-group">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group form-full-width">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea id="message" name="message" class="form-textarea" required></textarea>
+                </div>
+                
+                <button type="submit" class="form-button">Send Message</button>
+            </form>
+        </div>
+
+        <p class="copyright">© 2025 Ananthakrishnan P S</p>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const yOffset = -80; // Offset for sticky header
+                    const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                    
+                    // Update active navigation link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for active navigation
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-45% 0px -45% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    
+                    // Update active navigation link
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Project card overlay functionality - Only triggered by button click
+        document.querySelectorAll('.project-toggle').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent event from bubbling to the card
+                
+                const projectId = button.getAttribute('data-project');
+                const overlay = document.getElementById(`project-details-${projectId}`);
+                
+                // Show the overlay and disable body scroll
+                overlay.classList.add('active');
+                document.body.classList.add('no-scroll');
+            });
+        });
+
+        // Close button functionality
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const overlay = e.target.closest('.project-details');
+                overlay.classList.remove('active');
+                document.body.classList.remove('no-scroll'); // Re-enable scrolling
+            });
+        });
+
+        // Close overlay when clicking outside content
+        document.querySelectorAll('.project-details').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.classList.remove('no-scroll'); // Re-enable scrolling
+                }
+            });
+        });
+
+        // Close overlay with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.project-details').forEach(overlay => {
+                    overlay.classList.remove('active');
+                });
+                document.body.classList.remove('no-scroll'); // Re-enable scrolling
+            }
+        });
+    </script>
+</body>
+</html>
