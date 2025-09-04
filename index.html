@@ -668,9 +668,72 @@
         body.no-scroll {
             overflow: hidden;
         }
+        /* Popup Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: none; /* hidden by default */
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+/* Popup Box */
+.popup-box {
+    background: var(--black);
+    border: 1px solid var(--amber-500);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--white);
+    max-width: 350px;
+    width: 90%;
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-box p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--amber-500);
+}
+
+/* Button inside popup */
+.popup-btn {
+    background: var(--amber-500);
+    color: var(--black);
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.popup-btn:hover {
+    background: var(--amber-600);
+    transform: scale(1.05);
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
     </style>
 </head>
 <body>
+    <!-- Custom Success Popup -->
+<div id="successPopup" class="popup-overlay">
+  <div class="popup-box">
+    <p>✅ Your message has been sent!</p>
+    <button id="closePopup" class="popup-btn">OK</button>
+  </div>
+</div>
+
     <!-- Navigation -->
     <header class="header">
         <nav>
@@ -964,34 +1027,29 @@
             </a>
         </div>
 
-        <!-- New Contact Form Section -->
-        <div class="contact-form-container">
-            <h3 class="form-title">SEND ME A MESSAGE</h3>
-            <form class="contact-form" action="https://formsubmit.co/ananthups445@gmail.com" method="POST">
-                <!-- FormSubmit Configuration -->
-                <input type="hidden" name="_subject" value="New message from your portfolio">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
-                <input type="hidden" name="_captcha" value="false">
-                
-                <div class="form-group">
-                    <label for="name" class="form-label">Your Name</label>
-                    <input type="text" id="name" name="name" class="form-input" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email" class="form-label">Your Email</label>
-                    <input type="email" id="email" name="email" class="form-input" required>
-                </div>
-                
-                <div class="form-group form-full-width">
-                    <label for="message" class="form-label">Your Message</label>
-                    <textarea id="message" name="message" class="form-textarea" required></textarea>
-                </div>
-                
-                <button type="submit" class="form-button">Send Message</button>
-            </form>
+        <!-- Updated Contact Form Section -->
+<div class="contact-form-container">
+    <h3 class="form-title">SEND ME A MESSAGE</h3>
+    <form id="contactForm" class="contact-form">
+        <div class="form-group">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" id="name" class="form-input" required>
         </div>
+        
+        <div class="form-group">
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" id="email" class="form-input" required>
+        </div>
+        
+        <div class="form-group form-full-width">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea id="message" class="form-textarea" required></textarea>
+        </div>
+        
+        <button type="submit" class="form-button">Send Message</button>
+    </form>
+</div>
+
 
         <p class="copyright">© 2025 Ananthakrishnan P S</p>
     </section>
@@ -1092,7 +1150,37 @@
                 document.body.classList.remove('no-scroll'); // Re-enable scrolling
             }
         });
+        // --- NEW Google Form Integration ---
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSf-oUXgek04oWXVtAvYzdG9BpyG9Gn1WxeG7W4MZ1ZmnkYhKw/formResponse";
+
+    const formData = new FormData();
+    formData.append("entry.1960943138", document.getElementById("name").value);
+    formData.append("entry.1925586661", document.getElementById("email").value);
+    formData.append("entry.1990962902", document.getElementById("message").value);
+
+    fetch(googleFormURL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+    }).then(() => {
+    // Show styled popup
+    document.getElementById("successPopup").style.display = "flex";
+    
+    // Close button action
+    document.getElementById("closePopup").onclick = function() {
+        document.getElementById("successPopup").style.display = "none";
+        window.location.reload(); // refresh after closing
+    };
+})
+
+    }).catch(err => {
+        alert("❌ Something went wrong. Please try again.");
+        console.error(err);
+    });
+
     </script>
 </body>
-
 </html>
