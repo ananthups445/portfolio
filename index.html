@@ -1046,19 +1046,20 @@
 
         .contact-address {
             text-align: center;
+            padding: 1.5rem;
         }
 
         .contact-address h4 {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: var(--secondary-light);
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .contact-address p {
             color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 1rem;
+            line-height: 1.9;
+            font-size: 1.1rem;
         }
 
         .contact-method-item {
@@ -1194,6 +1195,95 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+        }
+
+        /* Success Message Toast */
+        .toast-notification {
+            position: fixed;
+            top: 120px;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--border-radius);
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 400px;
+            animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast-notification.error {
+            border-color: rgba(251, 113, 133, 0.3);
+            background: rgba(251, 113, 133, 0.05);
+        }
+
+        .toast-notification.success {
+            border-color: rgba(34, 197, 94, 0.3);
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+            min-width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-notification.success .toast-icon {
+            color: #22c55e;
+        }
+
+        .toast-notification.error .toast-icon {
+            color: #fb7185;
+        }
+
+        .toast-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .toast-message {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(400px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(400px);
+            }
+        }
+
+        .toast-notification.hide {
+            animation: slideOutRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         /* Footer */
@@ -1524,7 +1614,22 @@
 
             .skill-item {
                 font-size: 0.95rem;
-                padding: 0.5rem 0;
+                padding: 0.75rem 0 0.75rem 2rem;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .skill-item:hover {
+                color: var(--text-primary);
+                transform: translateX(8px);
+                padding-left: 2.5rem;
+            }
+
+            .skill-item::before {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .skill-item:hover::before {
+                transform: translateX(8px);
             }
 
             .projects-grid {
@@ -1632,11 +1737,11 @@
             }
 
             .contact-address h4 {
-                font-size: 1rem;
+                font-size: 1.2rem;
             }
 
             .contact-address p {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
 
             .form-group {
@@ -1741,11 +1846,6 @@
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="theme-switcher">
-                <button class="theme-btn active" data-theme="1" title="Theme 1: Steel Blue">1</button>
-                <button class="theme-btn" data-theme="2" title="Theme 2: Navy White">2</button>
-                <button class="theme-btn" data-theme="3" title="Theme 3: Warm Beige">3</button>
-            </div>
         </div>
     </nav>
 
@@ -2188,21 +2288,25 @@
     </footer>
 
     <script>
-        // Theme Switcher
+        // Theme Switcher - Random Theme on Every Visit
         const themeButtons = document.querySelectorAll('.theme-btn');
         const htmlElement = document.documentElement;
 
-        // Load saved theme or default to theme-1
-        const savedTheme = localStorage.getItem('selectedTheme') || 'theme-1';
-        setTheme(savedTheme);
+        // Get random theme (1, 2, or 3)
+        function getRandomTheme() {
+            const themes = ['theme-1', 'theme-2', 'theme-3'];
+            return themes[Math.floor(Math.random() * themes.length)];
+        }
+
+        // Load random theme on page load
+        const randomTheme = getRandomTheme();
+        setTheme(randomTheme);
 
         function setTheme(themeName) {
             // Remove all theme classes
             htmlElement.classList.remove('theme-1', 'theme-2', 'theme-3');
             // Add selected theme class
             htmlElement.classList.add(themeName);
-            // Save preference
-            localStorage.setItem('selectedTheme', themeName);
             // Update button states
             updateThemeButtons(themeName);
         }
@@ -2216,7 +2320,7 @@
             });
         }
 
-        // Theme button click handlers
+        // Theme button click handlers (for manual switching if needed)
         themeButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 setTheme(`theme-${btn.dataset.theme}`);
@@ -2387,6 +2491,32 @@
             // Page loaded
         });
 
+        // Show Toast Notification
+        function showToast(title, message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification ${type}`;
+            
+            const icon = type === 'success' ? '✓' : '✕';
+            
+            toast.innerHTML = `
+                <div class="toast-icon">${icon}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 4000);
+        }
+
         // Google Form Submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -2404,10 +2534,10 @@
                 body: formData
             }).then(() => {
                 // Show success message
-                alert('✅ Your message has been sent successfully!');
+                showToast('Success', 'Your message has been sent successfully!', 'success');
                 document.getElementById('contactForm').reset();
             }).catch(err => {
-                alert("❌ Something went wrong. Please try again.");
+                showToast('Error', 'Something went wrong. Please try again.', 'error');
                 console.error(err);
             });
         });
