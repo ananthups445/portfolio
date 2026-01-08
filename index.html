@@ -80,24 +80,17 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
-        /* Custom Cursor */
-        .cursor {
+        body::-webkit-scrollbar {
             display: none;
         }
 
-        .cursor.hover {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 176, 255, 0.1);
-            border-width: 1px;
-        }
-
-        .cursor.click {
-            animation: pulse 0.5s;
-        }
-
+        /* Custom Cursor - Disabled */
+        .cursor,
         .cursor-follower {
             display: none;
         }
@@ -245,6 +238,11 @@
             color: var(--text-primary);
             font-size: 1.5rem;
             cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--accent);
         }
 
         /* Hero Section */
@@ -253,7 +251,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 2rem 2rem;
+            padding: 120px 2rem 80px;
             position: relative;
             overflow: hidden;
         }
@@ -314,6 +312,66 @@
             opacity: 0;
             transform: translateY(30px);
             animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+            margin-bottom: 2rem;
+        }
+
+        .scroll-hint {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            background: var(--background);
+            padding: 0.6rem 0;
+            width: 100%;
+            margin: 0;
+            z-index: 50;
+            opacity: 1;
+            animation: fadeIn 1s ease 1.5s forwards;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .scroll-hint.hide {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            pointer-events: none;
+        }
+
+        .scroll-hint p {
+            font-size: 0.7rem;
+            color: #333;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator {
+            font-size: 0.9rem;
+            color: #000;
+            animation: bounce-down 1.5s infinite ease;
+            font-weight: bold;
+        }
+
+        @keyframes bounce-down {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cta-buttons {
@@ -396,14 +454,14 @@
 
         /* Section Styles */
         .section {
-            padding: 6rem 2rem;
+            padding: 2rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
         }
 
         .section-header {
-            margin-bottom: 4rem;
+            margin-bottom: 1.5rem;
             text-align: center;
         }
 
@@ -528,7 +586,7 @@
             width: 50px;
             height: 50px;
             border-radius: 12px;
-            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -578,8 +636,12 @@
         /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2.5rem;
+        }
+
+        .projects-grid .project-card:nth-child(4) {
+            grid-column: 2;
         }
 
         .project-card {
@@ -684,7 +746,7 @@
         }
 
         .project-modal-content {
-            background: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 1);
             border-radius: var(--border-radius);
             border: none;
             max-width: 900px;
@@ -694,10 +756,52 @@
             overflow-x: hidden;
             padding: 3rem;
             position: relative;
-            box-shadow: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
-            color: var(--text-primary);
+            color: #000;
+            scroll-behavior: smooth;
+            padding-bottom: 4.5rem;
+        }
+
+        .modal-scroll-hint {
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         right: 0;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         gap: 0.4rem;
+         background: #ffffff;
+         padding: 0.6rem 0;
+         width: 100%;
+         margin: 0;
+         z-index: 20;
+         pointer-events: none;
+}
+
+        .modal-scroll-hint.hide {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+        }
+
+        .modal-scroll-hint p {
+            font-size: 0.7rem;
+            color: #333;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .modal-scroll-indicator {
+            font-size: 0.9rem;
+            color: #000;
+            animation: bounce-down 1.5s infinite ease;
+            font-weight: bold;
         }
 
         .project-modal-content::-webkit-scrollbar {
@@ -736,7 +840,6 @@
             height: auto;
             border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 2rem;
             margin-top: 2rem;
             box-shadow: 0 10px 30px rgba(0, 176, 255, 0.2);
             flex-shrink: 0;
@@ -946,7 +1049,7 @@
         }
 
         .contact-address h4 {
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--secondary-light);
             margin-bottom: 1rem;
@@ -955,7 +1058,7 @@
         .contact-address p {
             color: var(--text-secondary);
             line-height: 1.8;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .contact-method-item {
@@ -1112,15 +1215,6 @@
             }
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-            }
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -1176,8 +1270,34 @@
         }
 
         @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .theme-switcher {
+                gap: 0.3rem;
+            }
+
+            .theme-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+
             .section {
                 padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
             }
 
             .stats-grid {
@@ -1186,6 +1306,19 @@
 
             .projects-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .projects-grid .project-card:nth-child(4) {
+                grid-column: auto;
+                justify-self: auto;
+                margin: 0 auto;
+                max-width: 500px;
+            }
+
+            .project-card {
+                margin: 0 auto;
+                width: 100%;
+                max-width: 500px;
             }
 
             .timeline::before {
@@ -1213,31 +1346,373 @@
             .contact-form h3 {
                 font-size: 1.5rem;
             }
+
+            .contact-methods {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+
+            .contact-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                font-size: 16px;
+            }
+
+            .skill-category {
+                padding: 2rem;
+            }
+
+            .about-text {
+                font-size: 1rem;
+            }
+
+            .scroll-hint {
+                bottom: 20px;
+            }
+
+            .scroll-hint p {
+                font-size: 0.8rem;
+            }
+
+            .scroll-indicator {
+                width: 24px;
+                height: 36px;
+            }
         }
 
         @media (max-width: 480px) {
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-container {
+                gap: 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+                letter-spacing: 0.5px;
+            }
+
+            .theme-switcher {
+                gap: 0.25rem;
+            }
+
+            .theme-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 0.6rem;
+            }
+
+            .mobile-menu-btn {
+                font-size: 1.3rem;
+            }
+
             .hero {
                 padding: 100px 1rem 2rem;
+                min-height: auto;
             }
 
             .hero-title {
-                font-size: 2.5rem;
-                white-space: normal;
-            }
-
-            .section-title {
                 font-size: 2rem;
+                white-space: normal;
+                word-break: break-word;
             }
 
-            .btn {
-                padding: 0.875rem 2rem;
-                width: 100%;
-                justify-content: center;
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .scroll-hint {
+                bottom: 20px;
+            }
+
+            .scroll-hint p {
+                font-size: 0.8rem;
+            }
+
+            .scroll-indicator {
+                width: 22px;
+                height: 33px;
             }
 
             .cta-buttons {
                 flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .btn {
+                padding: 0.875rem 1.5rem;
+                width: 100%;
+                justify-content: center;
+                font-size: 0.95rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .section-header {
+                margin-bottom: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .section-title::after {
+                width: 60px;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .about-grid {
+                gap: 1.5rem;
+            }
+
+            .about-text {
+                font-size: 0.95rem;
+                text-align: left;
+            }
+
+            .about-text p {
+                margin-bottom: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            .skill-category {
+                padding: 1.5rem;
+            }
+
+            .skill-header {
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .skill-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .skill-title {
+                font-size: 1.25rem;
+            }
+
+            .skill-item {
+                font-size: 0.95rem;
+                padding: 0.5rem 0;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                gap: 1.5rem;
+            }
+
+            .project-card {
+                margin: 0 auto;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .project-card:nth-child(4) {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+
+            .project-content {
+                padding: 1.5rem;
+            }
+
+            .project-title {
+                font-size: 1.25rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+            }
+
+            .project-type {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.75rem;
+            }
+
+            .timeline {
+                max-width: 100%;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-item {
+                padding-left: 50px;
+                margin-bottom: 1.5rem;
+            }
+
+            .timeline-dot {
+                left: 10px;
+                width: 14px;
+                height: 14px;
+                border-width: 2px;
+            }
+
+            .timeline-date {
+                font-size: 0.8rem;
+            }
+
+            .timeline-title {
+                font-size: 1.2rem;
+            }
+
+            .timeline-company {
+                font-size: 0.95rem;
+            }
+
+            .timeline-description {
+                font-size: 0.9rem;
+            }
+
+            .contact-container {
+                padding: 0;
+            }
+
+            .contact-grid {
+                gap: 2rem;
+            }
+
+            .contact-info {
+                padding: 1.5rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .contact-info h3,
+            .contact-form h3 {
+                font-size: 1.35rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .contact-methods {
                 gap: 1rem;
+                margin-bottom: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            .contact-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.35rem;
+            }
+
+            .contact-address h4 {
+                font-size: 1rem;
+            }
+
+            .contact-address p {
+                font-size: 0.9rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group label {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 0.875rem 1rem;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+
+            .form-group textarea {
+                min-height: 120px;
+            }
+
+            .contact-form .btn {
+                margin-top: 1rem;
+                padding: 0.875rem 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .project-modal-content {
+                padding: 2rem 1.5rem;
+                border-radius: 12px;
+            }
+
+            .modal-close {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .modal-image {
+                margin-bottom: 1.5rem;
+                margin-top: 1.5rem;
+            }
+
+            .modal-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .modal-info h3 {
+                font-size: 1.1rem;
+            }
+
+            .modal-info p,
+            .modal-info li {
+                font-size: 0.9rem;
+            }
+
+            .modal-tags span {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.8rem;
+            }
+
+            nav .nav-links {
+                top: 65px;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -1293,6 +1768,10 @@
                     </a>
                 </div>
             </div>
+        </div>
+        <div class="scroll-hint">
+            <p>Scroll to see more</p>
+            <div class="scroll-indicator">↓</div>
         </div>
     </section>
 
@@ -1472,6 +1951,10 @@
             <div class="modal-image">
                 <img src="assets/images/project1.jpg" alt="Camera Scanner Mount">
             </div>
+            <div class="modal-scroll-hint">
+                <p>Scroll to see more</p>
+                <div class="modal-scroll-indicator">↓</div>
+            </div>
         </div>
     </div>
 
@@ -1501,6 +1984,10 @@
             </div>
             <div class="modal-image">
                 <img src="assets/images/project2.jpg" alt="Card Machine Integration">
+            </div>
+            <div class="modal-scroll-hint">
+                <p>Scroll to see more</p>
+                <div class="modal-scroll-indicator">↓</div>
             </div>
         </div>
     </div>
@@ -1533,6 +2020,10 @@
             <div class="modal-image">
                 <img src="assets/images/project3.jpg" alt="Gate Spare Redesign">
             </div>
+            <div class="modal-scroll-hint">
+                <p>Scroll to see more</p>
+                <div class="modal-scroll-indicator">↓</div>
+            </div>
         </div>
     </div>
 
@@ -1562,6 +2053,10 @@
             </div>
             <div class="modal-image">
                 <img src="assets/images/project4.jpg" alt="B.Tech Final Project">
+            </div>
+            <div class="modal-scroll-hint">
+                <p>Scroll to see more</p>
+                <div class="modal-scroll-indicator">↓</div>
             </div>
         </div>
     </div>
@@ -1728,48 +2223,6 @@
             });
         });
 
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        let mouseX = 0, mouseY = 0;
-        let followerX = 0, followerY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-        });
-
-        // Smooth follower cursor
-        function animate() {
-            followerX += (mouseX - followerX) * 0.15;
-            followerY += (mouseY - followerY) * 0.15;
-            
-            cursorFollower.style.left = followerX + 'px';
-            cursorFollower.style.top = followerY + 'px';
-            
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // Cursor effects
-        document.addEventListener('click', () => {
-            cursor.classList.add('click');
-            setTimeout(() => cursor.classList.remove('click'), 500);
-        });
-
-        const interactiveElements = document.querySelectorAll('a, button, .btn, .project-card, .skill-category, .stat-card, .contact-method, .timeline-item');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
-            });
-        });
-
         // Scroll Progress
         const scrollProgress = document.querySelector('.scroll-progress');
         window.addEventListener('scroll', () => {
@@ -1790,10 +2243,16 @@
             element.classList.add('visible');
         };
 
+        const hideScrollElement = (element) => {
+            element.classList.remove('visible');
+        };
+
         const handleScrollAnimation = () => {
             scrollElements.forEach((el) => {
                 if (elementInView(el, 100)) {
                     displayScrollElement(el);
+                } else {
+                    hideScrollElement(el);
                 }
             });
         };
@@ -1859,15 +2318,73 @@
             }
         });
 
-        // Project card animation on hover
-        const projectCards = document.querySelectorAll('.project-card');
-        projectCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-15px) scale(1.02)';
+        // Scroll hint visibility - Hero section
+        const scrollHint = document.querySelector('.scroll-hint');
+        
+        window.addEventListener('scroll', () => {
+            if (!scrollHint) return;
+            
+            // Hide hint when scrolled down, show when at top
+            if (window.scrollY > 20) {
+                scrollHint.classList.add('hide');
+            } else {
+                scrollHint.classList.remove('hide');
+            }
+        }, { passive: true });
+
+        // Modal scroll hint visibility
+        document.querySelectorAll('.project-modal').forEach(modal => {
+            const modalContent = modal.querySelector('.project-modal-content');
+            const modalScrollHint = modal.querySelector('.modal-scroll-hint');
+            
+            if (modalScrollHint && modalContent) {
+                // Show hint when modal opens
+                const observer = new MutationObserver(() => {
+                    if (modal.classList.contains('active')) {
+                        modalScrollHint.classList.remove('hide');
+                        modalContent.scrollTop = 0; // Reset scroll position
+                    }
+                });
+                
+                observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+                
+                // Hide hint when scrolling within modal
+                modalContent.addEventListener('scroll', () => {
+                    const scrollableHeight = modalContent.scrollHeight - modalContent.clientHeight;
+                    const scrollPercentage = (modalContent.scrollTop / scrollableHeight) * 100;
+                    
+                    if (modalContent.scrollTop > 20 || scrollPercentage > 10) {
+                        modalScrollHint.classList.add('hide');
+                    } else {
+                        modalScrollHint.classList.remove('hide');
+                    }
+                }, { passive: true });
+            }
+        });
+
+        // Add smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(-15px) scale(1)';
-            });
+        });
+
+        // Initial check on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Page loaded
         });
 
         // Google Form Submission
