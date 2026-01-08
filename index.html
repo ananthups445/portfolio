@@ -3,1190 +3,1934 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ananthakrishnan P S - Portfolio</title>
-    <link href="https://fonts.cdnfonts.com/css/playlist" rel="stylesheet">
-    <link rel="icon" type="image/png" href="assets/images/AK.png"> 
+    <title>Ananthakrishnan P S - Professional Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/images/AK.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Palette 1: Steel Blue & Light Gray */
+        :root.theme-1 {
+            --primary: #1F3A5F;
+            --background: #F3F4F6;
+            --secondary: #374151;
+            --accent: #14B8A6;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --surface: #FFFFFF;
+            --card-bg: #F9FAFB;
+            --highlight: #93C5FD;
+        }
+
+        /* Palette 2: Navy Blue & White */
+        :root.theme-2 {
+            --primary: #0A2540;
+            --background: #FFFFFF;
+            --secondary: #6B7280;
+            --accent: #3B82F6;
+            --text-primary: #0F172A;
+            --text-secondary: #4B5563;
+            --surface: #FFFFFF;
+            --card-bg: #F9FAFB;
+            --divider: #E5E7EB;
+        }
+
+        /* Palette 3: Near Black & Warm Beige */
+        :root.theme-3 {
+            --primary: #0B0B0B;
+            --background: #FAF7F2;
+            --secondary: #9CA3AF;
+            --accent: #FB7185;
+            --text-primary: #0B0B0B;
+            --text-secondary: #6B7280;
+            --surface: #FFFFFF;
+            --card-bg: #F9F7F3;
+        }
+
+        /* Default theme */
+        :root {
+            --primary: #0B0B0B;
+            --background: #FAF7F2;
+            --secondary: #9CA3AF;
+            --accent: #FB7185;
+            --text-primary: #0B0B0B;
+            --text-secondary: #6B7280;
+            --surface: #FFFFFF;
+            --card-bg: #F9F7F3;
+            --success: #00c853;
+            --border-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --black: #000000;
-            --white: #ffffff;
-            --amber-500: #f59e0b;
-            --amber-600: #d97706;
-            --gray-200: #e5e7eb;
-            --gray-700: #374151;
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--black);
-            color: var(--white);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Common Styles */
-        .section {
-            max-width: 72rem;
-            margin: 0 auto;
-            padding: 2rem 1rem;
+        /* Custom Cursor */
+        .cursor {
+            display: none;
         }
 
-        .section-title {
-            font-size: 2.25rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 176, 255, 0.1);
+            border-width: 1px;
         }
 
-        @media (min-width: 768px) {
-            .section {
-                padding: 4rem 1rem;
-            }
-            
-            .section-title {
-                font-size: 2.5rem;
-            }
+        .cursor.click {
+            animation: pulse 0.5s;
         }
 
-        .divider {
-            height: 1px;
-            width: 100%;
-            background: linear-gradient(to right, transparent, var(--amber-500), transparent);
-            margin: 2.5rem auto;
+        .cursor-follower {
+            display: none;
         }
 
-        .text-right {
-            text-align: right;
-        }
-
-        .icon-sm {
-            width: 1rem;
-            height: 1rem;
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            z-index: 1000;
+            transition: width 0.1s;
         }
 
         /* Navigation */
-        .header {
-            position: sticky;
+        nav {
+            position: fixed;
             top: 0;
+            width: 100%;
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             z-index: 100;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
+            padding: 1rem 2rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .nav-list {
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 2rem;
-            padding: 1.25rem 0;
-            list-style: none;
         }
 
-        .nav-link {
-            font-size: 0.875rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            color: var(--gray-200);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--amber-500);
-        }
-
-        .nav-link.active {
-            color: var(--amber-500);
-        }
-
-        /* Home Section - Fixed Name Layout */
-        .home-section {
-            padding-top: 5rem;
-            padding-bottom: 6rem;
-            text-align: center;
-        }
-
-        .home-intro {
-            font-size: 3rem;
-            font-family: 'Playlist', cursive;
-            font-weight: 600;
-            color: var(--amber-500);
-            margin-bottom: 0.5rem;
-        }
-
-        .home-title {
-            font-size: 3rem;
+        .logo {
+            font-size: 1.8rem;
             font-weight: 800;
-            letter-spacing: 0.05em;
-            line-height: 1.2;
-            white-space: nowrap; /* Prevent name from breaking */
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            padding: 0.5rem 0;
         }
 
-        .home-subtitle {
-            font-size: 1.125rem;
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 1rem;
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .home-buttons {
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
             display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .nav-links a.active::before {
+            width: 100%;
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .theme-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 2px solid var(--secondary);
+            background: transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .theme-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hero-title span {
+            display: inline;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-left: 0.3em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+        }
+
+        .hero-cta {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 2.5rem;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: 600;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.2rem 2.8rem;
+            border-radius: var(--border-radius);
+            font-weight: 700;
             text-decoration: none;
-            transition: all 0.3s;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
-            background-color: var(--amber-500);
-            color: var(--black);
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .btn-primary:hover {
-            background-color: var(--amber-600);
-            transform: scale(1.03);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
-        /* About Section */
-        .about-description {
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 70rem;
-            margin-top: 1rem;
-            text-align: justify;
-            hyphens: auto;
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .about-grid {
-            display: grid;
-            gap: 2.5rem;
-            margin-top: 3rem;
+        .btn-secondary:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+            border: 2px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            border-color: var(--accent);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
             position: relative;
         }
 
-        .about-subtitle {
-            font-size: 1.5rem;
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 800;
             margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
         }
 
-        .about-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .about-item-title {
-            font-weight: 600;
-        }
-
-        .about-item-date {
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .vertical-divider {
+        .section-title::after {
+            content: '';
             position: absolute;
+            bottom: -10px;
             left: 50%;
-            top: 2rem;
-            bottom: 0;
-            width: 1px;
-            background: linear-gradient(to bottom, transparent, var(--amber-500), transparent);
             transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            hyphens: auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Skills Section */
-        .skills-section {
-            margin-top: 3rem;
-        }
-
-        .skills-grid {
+        .skills-container {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .skills-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1.5rem;
-            }
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
         }
 
         .skill-category {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
+            background: var(--dark-card);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
         }
 
         .skill-category:hover {
-            background-color: rgba(245, 158, 11, 0.1);
-            transform: translateY(-3px);
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: var(--shadow);
         }
 
-        .skill-category-title {
-            font-size: 1.25rem;
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .skill-title {
+            font-size: 1.5rem;
             font-weight: 700;
-            color: var(--amber-500);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
         }
 
-        .skills-list {
+        .skill-list {
             list-style: none;
         }
 
         .skill-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.75rem;
-            padding: 0.5rem 0;
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+            padding-left: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .skill-item:last-child {
+            border-bottom: none;
+        }
+
+        .skill-item:hover {
+            color: var(--text-primary);
+            transform: translateX(5px);
         }
 
         .skill-item::before {
-            content: "•";
-            color: var(--amber-500);
-            font-size: 1.5rem;
-            margin-right: 0.75rem;
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            transition: transform 0.3s;
         }
 
-        @media (max-width: 767px) {
-            .vertical-divider {
-                display: none;
-            }
-            
-            .text-right {
-                text-align: left;
-            }
-            
-            /* Responsive fix for name on mobile */
-            .home-title {
-                white-space: normal;
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr 1px 1fr;
-                gap: 0;
-            }
-            
-            .vertical-divider {
-                position: relative;
-                left: auto;
-                top: auto;
-                bottom: auto;
-                transform: none;
-                margin: 0 2.5rem;
-                height: 100%;
-            }
-            
-            .about-column:first-child {
-                padding-right: 1.25rem;
-            }
-            
-            .about-column:last-child {
-                padding-left: 1.25rem;
-            }
-            
-            .home-title {
-                font-size: 4.5rem;
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .home-title {
-                font-size: 5rem;
-            }
+        .skill-item:hover::before {
+            transform: translateX(5px);
         }
 
         /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
 
         .project-card {
-            background-color: rgba(255, 255, 255, 0.95);
-            color: var(--black);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
+            background: var(--dark-card);
+            border-radius: var(--border-radius);
             overflow: hidden;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.2);
+            transform: translateY(-15px);
+            box-shadow: var(--shadow);
         }
 
-        .project-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 1rem;
-            z-index: 2;
+        .project-card:hover::before {
+            transform: scaleX(1);
         }
 
-        .project-info {
-            flex: 1;
+        .project-content {
+            padding: 2.5rem;
+        }
+
+        .project-type {
+            display: inline-block;
+            color: var(--secondary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            background: rgba(0, 176, 255, 0.1);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
         }
 
         .project-title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
-        .project-blurb {
-            color: rgba(0, 0, 0, 0.8);
-            font-size: 0.9rem;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
 
-        .project-toggle {
-            flex-shrink: 0;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 9999px;
-            background-color: var(--black);
-            color: var(--amber-500);
-            display: grid;
-            place-items: center;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.3s;
-            z-index: 3;
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
 
-        .project-toggle:hover {
-            transform: scale(1.1);
+        .project-tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition);
         }
 
-        .project-details {
+        .project-tag:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Project Modal Styles */
+        .project-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
             padding: 2rem;
+            animation: fadeIn 0.3s ease;
         }
 
-        .project-details.active {
-            opacity: 1;
-            visibility: visible;
+        .project-modal.active {
+            display: flex;
         }
 
-        .project-content {
-            background-color: var(--white);
-            color: var(--black);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            max-width: 800px;
+        .project-modal-content {
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: var(--border-radius);
+            border: none;
+            max-width: 900px;
             width: 100%;
-            max-height: 80vh;
+            max-height: 85vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 3rem;
             position: relative;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            box-shadow: none;
             display: flex;
             flex-direction: column;
+            color: var(--text-primary);
         }
 
-        .project-content-inner {
-            overflow-y: auto;
-            padding-right: 5px;
-            flex: 1;
+        .project-modal-content::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .project-modal-content {
             scrollbar-width: none;
         }
 
-        .project-content-inner::-webkit-scrollbar {
-            display: none;
-        }
-
-        .project-list {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-
-        .project-list li {
-            font-size: 1rem;
-            color: rgba(0, 0, 0, 0.9);
-            margin-bottom: 0.75rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .project-list li::before {
-            content: "•";
+        .modal-close {
             position: absolute;
-            left: 0;
-            color: var(--amber-500);
-            font-size: 1.5rem;
-            line-height: 1;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 10;
         }
 
-        .project-image {
+        .modal-close:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .modal-image {
             width: 100%;
-            border-radius: 1rem;
+            height: auto;
+            border-radius: 12px;
             overflow: hidden;
-            margin-top: 1.5rem;
-            background-color: #f5f5f5;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 176, 255, 0.2);
+            flex-shrink: 0;
         }
 
-        .project-image img {
+        .modal-image img {
             width: 100%;
             height: auto;
             display: block;
+            max-width: 100%;
         }
 
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 50%;
-            background-color: var(--black);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.3s ease;
-        }
-
-        .close-btn:hover {
-            background-color: var(--amber-500);
-            transform: rotate(90deg);
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding-bottom: 6rem;
-            padding-top: 2rem;
-            text-align: center;
-        }
-
-        .contact-address {
-            margin-top: 1.5rem;
-        }
-
-        .contact-name {
+        .modal-info h2 {
+            font-size: 2rem;
             font-weight: 800;
-            letter-spacing: 0.05em;
-            white-space: nowrap; /* Keep contact name on one line */
+            margin-bottom: 0.5rem;
+            color: #000000;
         }
 
-        .contact-address p {
-            color: rgba(255, 255, 255, 0.9);
+        .modal-type {
+            color: #1a1a1a;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
         }
 
-        .contact-buttons {
+        .modal-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .modal-info p {
+            color: #222222;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            opacity: 1;
+        }
+
+        .modal-info ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .modal-info li {
+            color: #222222;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+            opacity: 1;
+        }
+
+        .modal-info li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #000000;
+            font-weight: 900;
+        }
+
+        .modal-tags {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-top: 2.5rem;
-        }
-
-        .contact-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            border: 1px solid rgba(245, 158, 11, 0.6);
-            color: var(--amber-500);
-            text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            transition: all 0.3s;
-        }
-
-        .contact-btn:hover {
-            background-color: var(--amber-500);
-            color: var(--black);
-            transform: translateY(-2px);
-        }
-
-        .copyright {
-            margin-top: 2.5rem;
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* New Contact Form Styles */
-        .contact-form-container {
-            margin-top: 3rem;
-            padding: 2rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 1rem;
-        }
-
-        .form-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--amber-500);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .contact-form {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .contact-form {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .form-full-width {
-                grid-column: span 2;
-            }
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: var(--gray-200);
-        }
-
-        .form-input, .form-textarea {
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background-color: rgba(0, 0, 0, 0.3);
-            color: var(--white);
-            font-family: inherit;
-            transition: all 0.3s;
-        }
-
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--amber-500);
-            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
-        }
-
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-button {
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            background-color: var(--amber-500);
-            color: var(--black);
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            justify-self: left;
+            gap: 1rem;
             margin-top: 1rem;
         }
 
-        .form-button:hover {
-            background-color: var(--amber-600);
-            transform: translateY(-2px);
+        .modal-tags span {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.5), rgba(99, 102, 241, 0.5));
+            border: 2px solid #1a1a1a;
+            color: #1a1a1a;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
         }
 
-        @media (min-width: 768px) {
-            .contact-section {
-                padding-top: 4rem;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
             }
-            
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--secondary), var(--accent), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 22px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border: 3px solid var(--dark-bg);
+            box-shadow: 0 0 0 4px rgba(0, 176, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.5);
+            box-shadow: 0 0 0 6px rgba(0, 176, 255, 0.3);
+        }
+
+        .timeline-date {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: var(--dark-card);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            font-size: 1.75rem;
+            margin-bottom: 3rem;
+            color: var(--secondary-light);
+            font-weight: 700;
+        }
+
+        .contact-methods {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 2px solid var(--glass-border);
+        }
+
+        .contact-address {
+            text-align: center;
+        }
+
+        .contact-address h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--secondary-light);
+            margin-bottom: 1rem;
+        }
+
+        .contact-address p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .contact-method-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .contact-method-item:hover .contact-icon {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .contact-method-item h4,
+        .contact-method-item a,
+        .contact-method-item p {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .contact-methods {
+                gap: 1.5rem;
+            }
+
+            .contact-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form h3 {
+            font-size: 1.75rem;
+            margin-bottom: 2.5rem;
+            color: var(--secondary-light);
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .contact-method-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-method-value {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-method-value:hover {
+            color: var(--secondary);
+        }
+
+        .location {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Scroll Animation Classes */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 18, 18, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
             .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                padding-left: 60px;
+            }
+
+            .timeline-dot {
+                left: 14px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .contact-info h3,
+            .contact-form h3 {
+                font-size: 1.5rem;
             }
         }
 
-        @media (max-width: 767px) {
-            .project-details {
-                padding: 1rem;
+        @media (max-width: 480px) {
+            .hero {
+                padding: 100px 1rem 2rem;
             }
-            
-            .project-content {
-                padding: 1.5rem;
-                max-height: 85vh;
+
+            .hero-title {
+                font-size: 2.5rem;
+                white-space: normal;
             }
-            
-            .project-card {
-                min-height: 180px;
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 0.875rem 2rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
-
-        /* Disable scroll when project overlay is active */
-        body.no-scroll {
-            overflow: hidden;
-        }
-        /* Popup Overlay */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    display: none; /* hidden by default */
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-}
-
-/* Popup Box */
-.popup-box {
-    background: var(--black);
-    border: 1px solid var(--amber-500);
-    border-radius: 0.5rem;
-    padding: 2rem;
-    text-align: center;
-    color: var(--white);
-    max-width: 350px;
-    width: 90%;
-    animation: fadeIn 0.3s ease;
-}
-
-.popup-box p {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    color: var(--amber-500);
-}
-
-/* Button inside popup */
-.popup-btn {
-    background: var(--amber-500);
-    color: var(--black);
-    border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 9999px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.popup-btn:hover {
-    background: var(--amber-600);
-    transform: scale(1.05);
-}
-
-/* Fade in animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
     </style>
 </head>
 <body>
-    <!-- Custom Success Popup -->
-<div id="successPopup" class="popup-overlay">
-  <div class="popup-box">
-    <p>✅ Your message has been sent!</p>
-    <button id="closePopup" class="popup-btn">OK</button>
-  </div>
-</div>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
 
     <!-- Navigation -->
-    <header class="header">
-        <nav>
-            <ul class="nav-list">
-                <li><a href="#home" class="nav-link active">HOME</a></li>
-                <li><a href="#about" class="nav-link">ABOUT</a></li>
-                <li><a href="#projects" class="nav-link">PROJECTS</a></li>
-                <li><a href="#contact" class="nav-link">CONTACT</a></li>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">ANANTHAKRISHNAN</div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-        </nav>
-    </header>
+            <div class="theme-switcher">
+                <button class="theme-btn active" data-theme="1" title="Theme 1: Steel Blue">1</button>
+                <button class="theme-btn" data-theme="2" title="Theme 2: Navy White">2</button>
+                <button class="theme-btn" data-theme="3" title="Theme 3: Warm Beige">3</button>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="section home-section">
-        <div class="home-content">
-            <p class="home-intro">Hai I'm</p>
-            <h1 class="home-title">ANANTHAKRISHNAN P S</h1>
-            <h2 class="home-subtitle">AFC Engineer · Mechanical Engineer · CAD Designer</h2>
-            
-            <div class="home-buttons">
-                <a href="#contact" class="btn btn-primary">Contact Me</a>
-                <a href="Ananthakrishnan PS.pdf" download class="btn btn-primary">Download CV</a>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">ANANTHAKRISHNAN <span>P S</span></h1>
+            <p class="hero-subtitle">AFC Engineer | Mechanical Designer | Technical Expert</p>
+            <div class="hero-cta">
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Get In Touch
+                    </a>
+                    <a href="Ananthakrishnan PS.pdf" download class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download Resume
+                    </a>
+                    <a href="#projects" class="btn btn-outline">
+                        <i class="fas fa-briefcase"></i> View Projects
+                    </a>
+                </div>
             </div>
         </div>
     </section>
-
-    <div class="divider"></div>
 
     <!-- About Section -->
-    <section id="about" class="section about-section">
-        <h2 class="section-title">ABOUT ME</h2>
-        <p class="about-description">
-            Experienced AFC Engineer with over 4 years in Automated Fare Collection (AFC) systems for metro rail projects. Skilled in
-            equipment installation, preventive & corrective maintenance, troubleshooting, and technical documentation. Strong background
-            in mechanical engineering with CAD design and problem-solving. Focused on maintenance planning, resource management, and
-            operational excellence to deliver reliable results.
-        </p>
-
-        <div class="about-grid">
-            <div class="about-column">
-                <h3 class="about-subtitle">EDUCATION</h3>
-                <ul class="about-list">
-                    <li>
-                        <p class="about-item-title">B.Tech in Mechanical Engineering</p>
-                        <p class="about-item-date">2018 – 2021</p>
-                    </li>
-                    <li>
-                        <p class="about-item-title">Diploma in Mechanical Engineering</p>
-                        <p class="about-item-date">2015 – 2018</p>
-                    </li>
-                    <li>
-                        <p class="about-item-title">THSLC</p>
-                        <p class="about-item-date">2015</p>
-                    </li>
-                </ul>
-            </div>
-            
-            <!-- Vertical Divider -->
-            <div class="vertical-divider"></div>
-
-            <div class="about-column text-right">
-                <h3 class="about-subtitle">EXPERIENCE</h3>
-                <ul class="about-list">
-                    <li>
-                        <p class="about-item-title">Paycraft Solution – Kochi Metro Rail Ltd</p>
-                        <p class="about-item-date">AFC Engineer - 1 · Jan 2025 – Present</p>
-                    </li>
-                    <li>
-                        <p class="about-item-title">AGS Transact Technologies – Kochi Metro Rail Ltd</p>
-                        <p class="about-item-date">Executive Engineer · Oct 2021 – Jan 2025</p>
-                    </li>
-                </ul>
-            </div>
+    <section id="about" class="section">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Experienced AFC Engineer with 4+ years of expertise in metro rail projects</p>
         </div>
-
-        <!-- Skills Section -->
-        <div class="skills-section">
-            <h3 class="about-subtitle">SKILLS</h3>
-            <div class="skills-grid">
-                <!-- Personal Skills -->
-                <div class="skill-category">
-                    <h4 class="skill-category-title">PERSONAL SKILLS</h4>
-                    <ul class="skills-list">
-                        <li class="skill-item">Problem-Solving</li>
-                        <li class="skill-item">Team Leadership</li>
-                        <li class="skill-item">Attention to Detail</li>
-                        <li class="skill-item">Project Management</li>
-                        <li class="skill-item">Communication</li>
-                        <li class="skill-item">Critical Thinking</li>
-                    </ul>
+        <div class="about-grid">
+            <div class="about-text scroll-animate">
+                <p>Experienced AFC Engineer with 4+ years of expertise in Automated Fare Collection systems for metro rail projects. Specializing in equipment installation, preventive & corrective maintenance, and technical troubleshooting.</p>
+                <p>Strong mechanical engineering background with advanced CAD design capabilities. Proven track record in maintenance planning, resource management, and delivering operational excellence. Committed to technical documentation standards and sustainable solutions.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card scroll-animate">
+                    <div class="stat-number">4+</div>
+                    <div class="stat-label">Years Experience</div>
                 </div>
-
-                <!-- Technical Skills -->
-                <div class="skill-category">
-                    <h4 class="skill-category-title">TECHNICAL SKILLS</h4>
-                    <ul class="skills-list">
-                        <li class="skill-item">AutoCAD</li>
-                        <li class="skill-item">Mechanical Design</li>
-                        <li class="skill-item">CAD Modeling</li>
-                        <li class="skill-item">Preventive & Corrective Maintenance</li>
-                        <li class="skill-item">Troubleshooting & Diagnostics</li>
-                        <li class="skill-item">Technical Documentation</li>
-                    </ul>
+                <div class="stat-card scroll-animate" style="transition-delay: 0.1s">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Projects Done</div>
                 </div>
-
-                <!-- Office Tools -->
-                <div class="skill-category">
-                    <h4 class="skill-category-title">OFFICE TOOLS</h4>
-                    <ul class="skills-list">
-                        <li class="skill-item">Microsoft excel</li>
-                        <li class="skill-item">Microsoft word</li>
-                        <li class="skill-item">Microsoft office</li>
-                        <li class="skill-item">Inventory Management</li>
-                        <li class="skill-item">Maintenance Planning</li>
-                    </ul>
+                <div class="stat-card scroll-animate" style="transition-delay: 0.2s">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Companies</div>
+                </div>
+                <div class="stat-card scroll-animate" style="transition-delay: 0.3s">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Dedication</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="divider"></div>
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <p class="section-subtitle">Technical and professional capabilities developed through hands-on experience</p>
+        </div>
+        <div class="skills-container">
+            <div class="skill-category scroll-animate">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="skill-title">Technical Skills</h3>
+                </div>
+                <ul class="skill-list">
+                    <li class="skill-item">AutoCAD & CAD Modeling</li>
+                    <li class="skill-item">Mechanical Design</li>
+                    <li class="skill-item">AFC Systems</li>
+                    <li class="skill-item">Troubleshooting & Diagnostics</li>
+                    <li class="skill-item">Technical Documentation</li>
+                    <li class="skill-item">System Integration</li>
+                </ul>
+            </div>
+            <div class="skill-category scroll-animate" style="transition-delay: 0.1s">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="skill-title">Professional Skills</h3>
+                </div>
+                <ul class="skill-list">
+                    <li class="skill-item">Project Management</li>
+                    <li class="skill-item">Team Leadership</li>
+                    <li class="skill-item">Problem Solving</li>
+                    <li class="skill-item">Critical Analysis</li>
+                    <li class="skill-item">Communication</li>
+                    <li class="skill-item">Decision Making</li>
+                </ul>
+            </div>
+            <div class="skill-category scroll-animate" style="transition-delay: 0.2s">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="skill-title">Tools & Systems</h3>
+                </div>
+                <ul class="skill-list">
+                    <li class="skill-item">Microsoft Office Suite</li>
+                    <li class="skill-item">Inventory Management</li>
+                    <li class="skill-item">Maintenance Planning</li>
+                    <li class="skill-item">Quality Assurance</li>
+                    <li class="skill-item">Technical Support</li>
+                    <li class="skill-item">Data Analysis</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section projects-section">
-        <h2 class="section-title">PROJECTS</h2>
-
+    <section id="projects" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Hands-on engineering solutions and design innovations</p>
+        </div>
         <div class="projects-grid">
-            <!-- Project 1 -->
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-info">
-                        <h3 class="project-title">STAND FOR MOUNTING CAMERA SCANNER</h3>
-                        <p class="project-blurb">Designed and fabricated mounting stand for camera scanner used in Automatic Fare Collection (AFC) gates.</p>
-                    </div>
-                    <button class="project-toggle" aria-label="Toggle details" data-project="1">
-                        ↓
-                    </button>
-                </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-info">
-                        <h3 class="project-title">PROTOTYPE FOR FIXING CARD MACHINE IN TVM</h3>
-                        <p class="project-blurb">Custom bracket for card swiping machine integration inside Ticket Vending Machine to enable non-cash payments.</p>
-                    </div>
-                    <button class="project-toggle" aria-label="Toggle details" data-project="2">
-                        ↓
-                    </button>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-info">
-                        <h3 class="project-title">AUTOMATIC GATE SPARE – RE-ENGINEERED</h3>
-                        <p class="project-blurb">Reverse-engineered a non-local spare for AFC automatic gate with improved design for manufacturability.</p>
-                    </div>
-                    <button class="project-toggle" aria-label="Toggle details" data-project="3">
-                        ↓
-                    </button>
-                </div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-info">
-                        <h3 class="project-title">PRELIMINARY 3D CAD – BTECH PROJECT</h3>
-                        <p class="project-blurb">Led the preliminary CAD modeling for B.Tech final project; design submitted for review.</p>
-                    </div>
-                    <button class="project-toggle" aria-label="Toggle details" data-project="4">
-                        ↓
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Project Details Overlays -->
-        <div class="project-details" id="project-details-1">
-            <div class="project-content">
-                <button class="close-btn" aria-label="Close details">
-                    ×
-                </button>
-                <div class="project-content-inner">
-                    <h3 class="project-title">STAND FOR MOUNTING CAMERA SCANNER</h3>
-                    <p class="project-blurb">Designed and fabricated mounting stand for camera scanner used in Automatic Fare Collection (AFC) gates.</p>
-                    
-                    <ul class="project-list">
-                        <li>Designed 2 models for fixing camera scanner to the automatic fare collection gate .</li>
-                        <li>One work as an attachment to the pre existing stand and one is designed as entirely new one.</li>
-                        <li>Two option submitted to client and fabricated the client approved design.</li>
-                        <li>Prototype built and tested on gate; client approved and moved to bulk production.</li>
-                    </ul>
-                    <div class="project-image">
-                        <img src="assets\images\project1.jpg" alt="Project image">
+            <div class="project-card scroll-animate" onclick="openProjectModal('project-1')" style="cursor: pointer;">
+                <div class="project-content">
+                    <div class="project-type">Design & Fabrication</div>
+                    <h3 class="project-title">Camera Scanner Mount</h3>
+                    <p class="project-description">Designed and fabricated specialized mounting stand for camera scanners in AFC gate systems. Developed two design iterations for optimal flexibility and client satisfaction.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">AutoCAD</span>
+                        <span class="project-tag">Fabrication</span>
+                        <span class="project-tag">Design</span>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="project-details" id="project-details-2">
-            <div class="project-content">
-                <button class="close-btn" aria-label="Close details">
-                    ×
-                </button>
-                <div class="project-content-inner">
-                    <h3 class="project-title">PROTOTYPE FOR FIXING CARD MACHINE IN TVM</h3>
-                    <p class="project-blurb">Custom bracket for card swiping machine integration inside Ticket Vending Machine to enable non-cash payments.</p>
-                    
-                    <ul class="project-list">
-                        <li>Designed, prototyped for testing, and submitted for client approval.</li>
-                    </ul>
-                    <div class="project-image">
-                        <img src="assets\images\project2.jpg" alt="Project image">
+            <div class="project-card scroll-animate" style="transition-delay: 0.1s; cursor: pointer;" onclick="openProjectModal('project-2')">
+                <div class="project-content">
+                    <div class="project-type">Custom Development</div>
+                    <h3 class="project-title">Card Machine Integration</h3>
+                    <p class="project-description">Engineered custom bracket for card swiping machine integration inside Ticket Vending Machines. Enabled seamless non-cash payment capabilities with client approval.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">CAD Design</span>
+                        <span class="project-tag">Integration</span>
+                        <span class="project-tag">Prototyping</span>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="project-details" id="project-details-3">
-            <div class="project-content">
-                <button class="close-btn" aria-label="Close details">
-                    ×
-                </button>
-                <div class="project-content-inner">
-                    <h3 class="project-title">AUTOMATIC GATE SPARE – RE-ENGINEERED</h3>
-                    <p class="project-blurb">Reverse-engineered a non-local spare for AFC automatic gate with improved design for manufacturability.</p>
-                    
-                    <ul class="project-list">
-                        <li>Replicated pre-existing part with enhancements.</li>
-                        <li>Made the design for manufacturing the damaged part and made prototypes and tested and finalized the design for bulk production of the part.</li>
-                    </ul>
-                    <div class="project-image">
-                        <img src="assets\images\project3.jpg" alt="Project image">
+            <div class="project-card scroll-animate" style="transition-delay: 0.2s; cursor: pointer;" onclick="openProjectModal('project-3')">
+                <div class="project-content">
+                    <div class="project-type">Re-Engineering</div>
+                    <h3 class="project-title">Gate Spare Redesign</h3>
+                    <p class="project-description">Reverse-engineered AFC automatic gate spare with improved manufacturability. Optimized design for bulk production while maintaining full functionality and durability.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Reverse Engineering</span>
+                        <span class="project-tag">Manufacturing</span>
+                        <span class="project-tag">Optimization</span>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="project-details" id="project-details-4">
-            <div class="project-content">
-                <button class="close-btn" aria-label="Close details">
-                    ×
-                </button>
-                <div class="project-content-inner">
-                    <h3 class="project-title">PRELIMINARY 3D CAD – BTECH PROJECT</h3>
-                    <p class="project-blurb">Led the preliminary CAD modeling for B.Tech final project; design submitted for review.</p>
-                    
-                    <ul class="project-list">
-                        <li>Preliminary design for the project was made and submitted for review.</li>
-                        <li>Due to the pandemic fabrication was not done for this.</li>
-                    </ul>
-                    <div class="project-image">
-                        <img src="assets\images\project4.jpg" alt="Project image">
+            <div class="project-card scroll-animate" style="transition-delay: 0.3s; cursor: pointer;" onclick="openProjectModal('project-4')">
+                <div class="project-content">
+                    <div class="project-type">Academic</div>
+                    <h3 class="project-title">B.Tech Final Project</h3>
+                    <p class="project-description">Led comprehensive 3D CAD modeling for B.Tech mechanical engineering final project. Submitted detailed design documentation for academic review and excellence.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">3D CAD</span>
+                        <span class="project-tag">Design</span>
+                        <span class="project-tag">Documentation</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="divider"></div>
+    <!-- Project Modals -->
+    <div class="project-modal" id="project-1">
+        <div class="project-modal-content">
+            <button class="modal-close" onclick="closeProjectModal('project-1')">&times;</button>
+            <div class="modal-info">
+                <h2>Camera Scanner Mount</h2>
+                <p class="modal-type">Design & Fabrication Project</p>
+                <h3>Project Overview</h3>
+                <p>Designed and engineered a specialized mounting stand for camera scanners used in Automated Fare Collection (AFC) gate systems at Kochi Metro Rail.</p>
+                <h3>Key Details</h3>
+                <ul>
+                    <li>Developed 2 design iterations for maximum flexibility</li>
+                    <li>Designed attachment solution for pre-existing stands and complete standalone design</li>
+                    <li>Created comprehensive CAD models using AutoCAD</li>
+                    <li>Fabricated prototype for client testing</li>
+                    <li>Client approved design moved to bulk production</li>
+                </ul>
+                <h3>Technologies Used</h3>
+                <div class="modal-tags">
+                    <span>AutoCAD</span>
+                    <span>3D Modeling</span>
+                    <span>Manufacturing Design</span>
+                    <span>Fabrication</span>
+                </div>
+            </div>
+            <div class="modal-image">
+                <img src="assets/images/project1.jpg" alt="Camera Scanner Mount">
+            </div>
+        </div>
+    </div>
+
+    <div class="project-modal" id="project-2">
+        <div class="project-modal-content">
+            <button class="modal-close" onclick="closeProjectModal('project-2')">&times;</button>
+            <div class="modal-info">
+                <h2>Card Machine Integration Bracket</h2>
+                <p class="modal-type">Custom Development Project</p>
+                <h3>Project Overview</h3>
+                <p>Engineered a custom bracket for integrating card swiping machines inside Ticket Vending Machines (TVM) to enable non-cash payment capabilities in metro systems.</p>
+                <h3>Key Details</h3>
+                <ul>
+                    <li>Designed custom bracket for seamless integration into existing TVM structure</li>
+                    <li>Ensured optimal card machine positioning and accessibility</li>
+                    <li>Created detailed technical drawings and specifications</li>
+                    <li>Built and tested prototype before client approval</li>
+                    <li>Enabled non-cash payment options for metro passengers</li>
+                </ul>
+                <h3>Technologies Used</h3>
+                <div class="modal-tags">
+                    <span>CAD Design</span>
+                    <span>System Integration</span>
+                    <span>Prototyping</span>
+                    <span>Technical Drawings</span>
+                </div>
+            </div>
+            <div class="modal-image">
+                <img src="assets/images/project2.jpg" alt="Card Machine Integration">
+            </div>
+        </div>
+    </div>
+
+    <div class="project-modal" id="project-3">
+        <div class="project-modal-content">
+            <button class="modal-close" onclick="closeProjectModal('project-3')">&times;</button>
+            <div class="modal-info">
+                <h2>Automatic Gate Spare Re-Engineering</h2>
+                <p class="modal-type">Re-Engineering Project</p>
+                <h3>Project Overview</h3>
+                <p>Successfully reverse-engineered a non-local spare component for AFC automatic gates with enhanced design for improved manufacturability and reliability.</p>
+                <h3>Key Details</h3>
+                <ul>
+                    <li>Analyzed existing damaged part to understand design intent</li>
+                    <li>Replicated part with improvements for manufacturing efficiency</li>
+                    <li>Enhanced design for easier production and reduced costs</li>
+                    <li>Created prototypes and conducted rigorous testing</li>
+                    <li>Finalized design for high-volume bulk production</li>
+                    <li>Maintained full functionality and durability standards</li>
+                </ul>
+                <h3>Technologies Used</h3>
+                <div class="modal-tags">
+                    <span>Reverse Engineering</span>
+                    <span>Manufacturing Design</span>
+                    <span>CAD Modeling</span>
+                    <span>Quality Testing</span>
+                </div>
+            </div>
+            <div class="modal-image">
+                <img src="assets/images/project3.jpg" alt="Gate Spare Redesign">
+            </div>
+        </div>
+    </div>
+
+    <div class="project-modal" id="project-4">
+        <div class="project-modal-content">
+            <button class="modal-close" onclick="closeProjectModal('project-4')">&times;</button>
+            <div class="modal-info">
+                <h2>B.Tech Mechanical Engineering Final Project</h2>
+                <p class="modal-type">Academic Design Project</p>
+                <h3>Project Overview</h3>
+                <p>Led comprehensive 3D CAD modeling and design documentation for B.Tech mechanical engineering final project. Submitted detailed design with professional technical documentation.</p>
+                <h3>Key Details</h3>
+                <ul>
+                    <li>Conceptualized and designed complete project solution</li>
+                    <li>Created detailed 3D CAD models using professional CAD software</li>
+                    <li>Prepared comprehensive technical documentation</li>
+                    <li>Submitted design for academic review and evaluation</li>
+                    <li>Demonstrated advanced problem-solving and design methodology</li>
+                </ul>
+                <h3>Technologies Used</h3>
+                <div class="modal-tags">
+                    <span>3D CAD Modeling</span>
+                    <span>Technical Design</span>
+                    <span>Documentation</span>
+                    <span>Engineering Analysis</span>
+                </div>
+            </div>
+            <div class="modal-image">
+                <img src="assets/images/project4.jpg" alt="B.Tech Final Project">
+            </div>
+        </div>
+    </div>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Professional Journey</h2>
+            <p class="section-subtitle">Career progression and professional milestones</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">January 2025 - Present</div>
+                <h3 class="timeline-title">AFC Engineer - I</h3>
+                <p class="timeline-company">Paycraft Solution | Kochi Metro Rail Ltd</p>
+                <p class="timeline-description">Leading AFC system engineering initiatives. Managing technical implementations and ensuring optimal system reliability for metro operations. Overseeing installation and maintenance protocols.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">October 2021 - January 2025</div>
+                <h3 class="timeline-title">Executive Engineer</h3>
+                <p class="timeline-company">AGS Transact Technologies | Kochi Metro Rail Ltd</p>
+                <p class="timeline-description">Oversaw AFC equipment installation, maintenance, troubleshooting, and documentation. Managed maintenance planning and resource allocation for operational excellence and reliability.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Education</h2>
+            <p class="section-subtitle">Academic qualifications and professional development</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item scroll-animate">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Bachelor of Technology (B.Tech) in Mechanical Engineering</h3>
+                    <p class="timeline-year">2021</p>
+                    <p class="timeline-location">Engineering Institute, India</p>
+                    <p class="timeline-description">Specialized in Mechanical Design and CAD Applications. Strong foundation in mechanical engineering principles, thermodynamics, and manufacturing processes. Successfully completed final project with 3D CAD modeling and comprehensive technical documentation.</p>
+                </div>
+            </div>
+            <div class="timeline-item scroll-animate" style="transition-delay: 0.1s">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Diploma in Mechanical Engineering</h3>
+                    <p class="timeline-year">2018</p>
+                    <p class="timeline-location">Technical Institute, India</p>
+                    <p class="timeline-description">Foundation-level education in mechanical engineering with hands-on training in CAD software, technical drawings, and mechanical systems. Developed practical skills in design and manufacturing.</p>
+                </div>
+            </div>
+            <div class="timeline-item scroll-animate" style="transition-delay: 0.2s">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Higher Secondary School Certificate (THSLC)</h3>
+                    <p class="timeline-year">2015</p>
+                    <p class="timeline-location">Higher Secondary School, India</p>
+                    <p class="timeline-description">Completed secondary education with focus on science subjects including physics, chemistry, and mathematics. Foundation for technical education.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-        <h2 class="section-title">CONTACT</h2>
-
-        <div class="contact-address">
-            <p class="contact-name">ANANTHAKRISHNAN P S</p>
-            <p>PALAKKASSERY HOUSE</p>
-            <p>PO ANAPUZHA, KODUNGALLUR</p>
-            <p>THRISSUR</p>
-            <p>KERALA – 680667</p>
-            <p>INDIA</p>
-        </div>
-
-        <div class="contact-buttons">
-            <a href="mailto:ananthups445@gmail.com" class="contact-btn">
-                <span>GMAIL</span>
-            </a>
-            <a href="https://www.linkedin.com/in/ananthakrishnan-p-s-325118147" target="_blank" class="contact-btn">
-                <span>LINKEDIN</span>
-            </a>
-            <a href="https://wa.me/919567895285" target="_blank" class="contact-btn">
-                <span>WHATSAPP</span>
-            </a>
-            <a href="tel:+919567895285" class="contact-btn">
-                <span>PHONE</span>
-            </a>
-        </div>
-
-        <!-- Updated Contact Form Section -->
-<div class="contact-form-container">
-    <h3 class="form-title">SEND ME A MESSAGE</h3>
-    <form id="contactForm" class="contact-form">
-        <div class="form-group">
-            <label for="name" class="form-label">Your Name</label>
-            <input type="text" id="name" class="form-input" required>
+    <section id="contact" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Let's discuss opportunities and collaborations</p>
         </div>
         
-        <div class="form-group">
-            <label for="email" class="form-label">Your Email</label>
-            <input type="email" id="email" class="form-input" required>
+        <div class="contact-container scroll-animate">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <div class="contact-methods">
+                        <a href="mailto:ananthups445@gmail.com" class="contact-method-item" title="Send Email">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </a>
+                        <a href="tel:+919567895285" class="contact-method-item" title="Call Me">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ananthakrishnan-p-s-325118147" target="_blank" class="contact-method-item" title="LinkedIn">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/919567895285" target="_blank" class="contact-method-item" title="WhatsApp">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="contact-address">
+                        <h4>Address</h4>
+                        <p>Palakkassery House, PO Anapuzha</p>
+                        <p>Kodungallur, Thrissur</p>
+                        <p>Kerala - 680667, India</p>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <h3>Send Me a Message</h3>
+                    <div class="form-group">
+                        <label for="contact-name">Full Name *</label>
+                        <input type="text" id="contact-name" name="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email Address *</label>
+                        <input type="email" id="contact-email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message *</label>
+                        <textarea id="contact-message" name="message" rows="6" required placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
         </div>
-        
-        <div class="form-group form-full-width">
-            <label for="message" class="form-label">Your Message</label>
-            <textarea id="message" class="form-textarea" required></textarea>
-        </div>
-        
-        <button type="submit" class="form-button">Send Message</button>
-    </form>
-</div>
-
-
-        <p class="copyright">© 2025 Ananthakrishnan P S</p>
     </section>
 
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Ananthakrishnan P S. All rights reserved. | Designed for Excellence</p>
+    </footer>
+
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const yOffset = -80; // Offset for sticky header
-                    const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                    
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                    
-                    // Update active navigation link
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
+        // Theme Switcher
+        const themeButtons = document.querySelectorAll('.theme-btn');
+        const htmlElement = document.documentElement;
+
+        // Load saved theme or default to theme-1
+        const savedTheme = localStorage.getItem('selectedTheme') || 'theme-1';
+        setTheme(savedTheme);
+
+        function setTheme(themeName) {
+            // Remove all theme classes
+            htmlElement.classList.remove('theme-1', 'theme-2', 'theme-3');
+            // Add selected theme class
+            htmlElement.classList.add(themeName);
+            // Save preference
+            localStorage.setItem('selectedTheme', themeName);
+            // Update button states
+            updateThemeButtons(themeName);
+        }
+
+        function updateThemeButtons(themeName) {
+            themeButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.theme === themeName.replace('theme-', '')) {
+                    btn.classList.add('active');
                 }
+            });
+        }
+
+        // Theme button click handlers
+        themeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setTheme(`theme-${btn.dataset.theme}`);
             });
         });
 
-        // Intersection Observer for active navigation
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        // Smooth follower cursor
+        function animate() {
+            followerX += (mouseX - followerX) * 0.15;
+            followerY += (mouseY - followerY) * 0.15;
+            
+            cursorFollower.style.left = followerX + 'px';
+            cursorFollower.style.top = followerY + 'px';
+            
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Cursor effects
+        document.addEventListener('click', () => {
+            cursor.classList.add('click');
+            setTimeout(() => cursor.classList.remove('click'), 500);
+        });
+
+        const interactiveElements = document.querySelectorAll('a, button, .btn, .project-card, .skill-category, .stat-card, .contact-method, .timeline-item');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Scroll Progress
+        const scrollProgress = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+        });
+
+        // Scroll Animations
+        const scrollElements = document.querySelectorAll('.scroll-animate, .timeline-item');
+        const elementInView = (el, offset = 100) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset;
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('visible');
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 100)) {
+                    displayScrollElement(el);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+
+        // Initialize on load
+        handleScrollAnimation();
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Active Navigation
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navItems = document.querySelectorAll('.nav-links a');
 
         const observerOptions = {
             root: null,
-            rootMargin: '-45% 0px -45% 0px',
-            threshold: 0
+            rootMargin: '0px',
+            threshold: 0.3
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
                 if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    
-                    // Update active navigation link
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === `#${id}`) {
+                            item.classList.add('active');
                         }
                     });
                 }
             });
         }, observerOptions);
 
-        sections.forEach(section => {
-            observer.observe(section);
+        sections.forEach(section => observer.observe(section));
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg) {
+                heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
         });
 
-        // Project card overlay functionality - Only triggered by button click
-        document.querySelectorAll('.project-toggle').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent event from bubbling to the card
-                
-                const projectId = button.getAttribute('data-project');
-                const overlay = document.getElementById(`project-details-${projectId}`);
-                
-                // Show the overlay and disable body scroll
-                overlay.classList.add('active');
-                document.body.classList.add('no-scroll');
+        // Project card animation on hover
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(-15px) scale(1)';
             });
         });
 
-        // Close button functionality
-        document.querySelectorAll('.close-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const overlay = e.target.closest('.project-details');
-                overlay.classList.remove('active');
-                document.body.classList.remove('no-scroll'); // Re-enable scrolling
+        // Google Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSf-oUXgek04oWXVtAvYzdG9BpyG9Gn1WxeG7W4MZ1ZmnkYhKw/formResponse";
+
+            const formData = new FormData();
+            formData.append("entry.1960943138", document.getElementById("contact-name").value);
+            formData.append("entry.1925586661", document.getElementById("contact-email").value);
+            formData.append("entry.1990962902", document.getElementById("contact-message").value);
+
+            fetch(googleFormURL, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            }).then(() => {
+                // Show success message
+                alert('✅ Your message has been sent successfully!');
+                document.getElementById('contactForm').reset();
+            }).catch(err => {
+                alert("❌ Something went wrong. Please try again.");
+                console.error(err);
             });
         });
 
-        // Close overlay when clicking outside content
-        document.querySelectorAll('.project-details').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('active');
-                    document.body.classList.remove('no-scroll'); // Re-enable scrolling
+        // Project Modal Functions
+        function openProjectModal(projectId) {
+            const modal = document.getElementById(projectId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeProjectModal(projectId) {
+            const modal = document.getElementById(projectId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal when clicking outside the content
+        document.querySelectorAll('.project-modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
                 }
             });
         });
 
-        // Close overlay with Escape key
+        // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                document.querySelectorAll('.project-details').forEach(overlay => {
-                    overlay.classList.remove('active');
+                document.querySelectorAll('.project-modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
                 });
-                document.body.classList.remove('no-scroll'); // Re-enable scrolling
             }
         });
-        // --- NEW Google Form Integration ---
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSf-oUXgek04oWXVtAvYzdG9BpyG9Gn1WxeG7W4MZ1ZmnkYhKw/formResponse";
-
-    const formData = new FormData();
-    formData.append("entry.1960943138", document.getElementById("name").value);
-    formData.append("entry.1925586661", document.getElementById("email").value);
-    formData.append("entry.1990962902", document.getElementById("message").value);
-
-    fetch(googleFormURL, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData
-    }).then(() => {
-    // Show styled popup
-    document.getElementById("successPopup").style.display = "flex";
-    
-    // Close button action
-    document.getElementById("closePopup").onclick = function() {
-        document.getElementById("successPopup").style.display = "none";
-        window.location.reload(); // refresh after closing
-    };
-})
-
-    }).catch(err => {
-        alert("❌ Something went wrong. Please try again.");
-        console.error(err);
-    });
-
     </script>
 </body>
 </html>
-
-
-
