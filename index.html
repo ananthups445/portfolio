@@ -2387,7 +2387,6 @@
             data.contact=Boolean(profile?.email||profile?.phone||profile?.location||data.social.length);
             renderNav(profile,data); renderProfile(profile,data); renderAbout(profile,data,expTextR.data); renderSkills(data.skills); renderProjects(data.projects); renderExperience(data.experience); renderEducation(data.education); renderCertificates(data.certificates); renderContact(profile,data.social); setupAdminTrigger(); initializeOriginalBehaviors();
             const footer=document.querySelector('#footer p'); if(footer) footer.innerHTML=`&copy; ${new Date().getFullYear()} ${esc(profile?.name||'Portfolio')}. All rights reserved. | Designed for Excellence`;
-            if(data.contact) document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();showToast('Info','Contact form integration is unchanged; connect your preferred form endpoint when ready.','success');e.target.reset();});
             observeAnimations();
         }
         function observeAnimations(){const els=document.querySelectorAll('.scroll-animate,.timeline-item'); const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1}); els.forEach(x=>obs.observe(x));}
