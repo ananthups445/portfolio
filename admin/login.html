@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Login</title><link rel="icon" href="../assets/images/AK.png"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="admin.css"></head><body>
+<nav class="admin-nav"><div class="nav-inner"><a class="logo" id="adminLoginLogo" href="../index.html">PORTFOLIO</a></div></nav>
+<main class="admin-shell login-shell">
+  <section class="login-panel">
+    <div class="login-copy">
+      <p class="eyebrow">Portfolio Admin</p>
+      <h1>Secure access</h1>
+      <p>Manage the public portfolio content, projects, experience, skills, and profile updates with the same polished experience as the portfolio itself.</p>
+    </div>
+    <div class="login-card">
+      <div class="card-head">
+        <h2>Sign In</h2>
+      </div>
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" autocomplete="username" placeholder="name@example.com" required>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+        </div>
+        <div class="form-actions">
+          <a class="btn btn-outline" href="../index.html">Back</a>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-right-to-bracket"></i> Sign In</button>
+        </div>
+        <p id="error" class="muted" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="admin-footer">Private administration area</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../supabase-config.js"></script><script>
+const htmlElement = document.documentElement;
+const themes = ['theme-1', 'theme-2', 'theme-3'];
+function getRandomTheme() {
+  return themes[Math.floor(Math.random() * themes.length)];
+}
+function setTheme(themeName) {
+  htmlElement.classList.remove('theme-1', 'theme-2', 'theme-3');
+  htmlElement.classList.add(themeName);
+}
+setTheme(getRandomTheme());
+
+const {createClient}=supabase;const client=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,storage:window.sessionStorage,autoRefreshToken:true,detectSessionInUrl:true}});
+const ADMIN_LOGIN_TICKET='portfolio_admin_login_ticket';
+(async()=>{try{const {data}=await client.from('profile').select('name').eq('profile_key','main').maybeSingle();const name=data?.name||'PORTFOLIO';document.getElementById('adminLoginLogo').textContent=name;document.title=name==='PORTFOLIO'?'Admin Login':`${name} · Admin Login`;}catch(e){console.warn('Unable to load profile name',e);}})();
+(async()=>{const {data:{session}}=await client.auth.getSession();if(session){await client.auth.signOut({scope:'local'});}})();
+document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const error=document.getElementById('error');error.textContent='Signing in…';const {data,error:err}=await client.auth.signInWithPassword({email:email.value.trim(),password:password.value});if(err){error.textContent=err.message;return}const {data:admin,error:adminErr}=await client.from('admin_users').select('user_id').eq('user_id',data.user.id).maybeSingle();if(adminErr||!admin){await client.auth.signOut({scope:'local'});error.textContent=adminErr?.message||'This account is not authorized as a portfolio administrator.';return}sessionStorage.setItem(ADMIN_LOGIN_TICKET,'true');location.href='index.html';});
+</script></body></html>
