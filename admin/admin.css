@@ -34,3 +34,34 @@ a{color:inherit}
 @media(max-width:820px){.login-panel{grid-template-columns:1fr}.login-copy{border-right:0;border-bottom:1px solid var(--line)}.admin-layout{grid-template-columns:1fr}.side{position:static;display:grid;grid-template-columns:repeat(2,1fr)}.side button:nth-last-child(-n+1){border-bottom:1px solid var(--line)}.form-actions{flex-direction:column-reverse}.form-actions .btn{width:100%}}
 @media(max-width:520px){.admin-nav{padding:.85rem 1rem}.nav-inner{flex-wrap:wrap}.nav-actions{width:100%;margin-left:0}.nav-actions .btn{flex:1}.admin-shell{padding:7.5rem 1rem 2rem}.login-copy,.login-card{padding:1.25rem}.side{grid-template-columns:1fr}.record-head{flex-direction:column}.record-head .btn{width:100%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+@media(max-width:820px){
+  .admin-shell{padding-left:1rem;padding-right:1rem}
+  .panel{padding:1rem}
+  .form-grid{grid-template-columns:minmax(0,1fr)}
+  .record-head h2{overflow-wrap:anywhere}
+  .record-actions{flex-wrap:wrap}
+  .record-actions button{min-height:42px}
+  .file-upload{grid-template-columns:minmax(0,1fr)}
+  .file-upload input[type=file],.image-preview-button{grid-column:1;grid-row:auto;width:100%;min-height:42px}
+  .image-preview-button{margin-top:.25rem}
+  .image-preview-dialog{width:calc(100% - 1rem);max-height:86svh;overflow:auto}
+}
+@media(max-width:520px){
+  .admin-nav{padding:.7rem .75rem}
+  .nav-actions{gap:.4rem}
+  .nav-actions .btn{min-width:0;padding:.65rem .55rem;font-size:.59rem}
+  .admin-shell{padding-top:8.75rem}
+  .admin-intro h1{font-size:clamp(2rem,11vw,3rem)}
+  .admin-intro p{font-size:.84rem}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat{padding:.75rem}
+  .stat strong{font-size:1.2rem}
+  .stat span{font-size:.55rem;overflow-wrap:anywhere}
+  .panel h2{font-size:1.35rem}
+  .record{padding:.8rem}
+  .record-actions{width:100%}
+  .record-actions button{flex:1}
+  .login-shell{padding-top:1rem}
+  .login-panel{margin-top:1rem}
+}
