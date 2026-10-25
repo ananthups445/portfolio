@@ -4,6 +4,15 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Ananthakrishnan P S - Portfolio</title>
+<meta name="description" content="Ananthakrishnan P S's software testing portfolio: QA skills, experience, internships, projects, certifications, and contact details."/>
+<meta name="robots" content="index, follow"/>
+<meta name="theme-color" content="#070807"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Ananthakrishnan P S - Portfolio"/>
+<meta property="og:description" content="Explore software testing experience, internships, QA skills, projects, and certifications."/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ananthakrishnan P S - Portfolio"/>
+<meta name="twitter:description" content="Explore software testing experience, internships, QA skills, projects, and certifications."/>
 <link href="assets/images/AK.png" rel="icon" type="image/png"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -2316,6 +2325,45 @@ body{
             animation: portfolio-loader-progress 1.1s cubic-bezier(.4, 0, .2, 1) infinite;
         }
 
+        .portfolio-status {
+            position: fixed;
+            top: 88px;
+            left: 50%;
+            z-index: 10002;
+            display: none;
+            width: min(360px, calc(100% - 32px));
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 12px;
+            transform: translateX(-50%);
+            border: 1px solid var(--t0-line);
+            border-left: 3px solid var(--t0-accent);
+            background: var(--t0-surface);
+            color: var(--t0-text);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .3);
+            font: 10px/1.4 var(--t0-mono);
+        }
+
+        .portfolio-status.is-visible { display: flex; }
+
+        .portfolio-status button {
+            flex: none;
+            padding: 6px 8px;
+            border: 1px solid var(--t0-line);
+            background: transparent;
+            color: var(--t0-accent);
+            font: 10px var(--t0-mono);
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .portfolio-status button:hover,
+        .portfolio-status button:focus-visible {
+            border-color: var(--t0-accent);
+            outline: none;
+        }
+
         @keyframes portfolio-loader-rotate {
             to { transform: rotate(360deg); }
         }
@@ -2361,6 +2409,10 @@ body{
         <span class="portfolio-loader-progress" aria-hidden="true"></span>
     </div>
 </div>
+<div class="portfolio-status" id="portfolio-status" role="alert" aria-live="assertive">
+    <span id="portfolio-status-message"></span>
+    <button id="portfolio-retry" type="button">Retry</button>
+</div>
 <div class="scroll-progress"></div>
 <nav>
 <div class="nav-container">
@@ -2380,8 +2432,8 @@ body{
 </div>
 <div class="hero-content">
 <div class="hero-greeting" aria-label="Greeting">// HI, I'M</div>
-<h1 class="hero-title" id="hero-name"></h1>
-<p class="hero-subtitle" id="hero-title"></p>
+<h1 class="hero-title" id="hero-name">Ananthakrishnan P S</h1>
+<p class="hero-subtitle" id="hero-title">AFC SPECIALIST | SOFTWARE TESTING</p>
 <div class="hero-cta" id="hero-actions"></div>
 </div>
 <div class="scroll-hint">
@@ -2491,8 +2543,24 @@ body{
 </script>
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
+<script>
+window.handlePortfolioDependencyError=function(dependency){
+    const status=document.getElementById('portfolio-status');
+    const message=document.getElementById('portfolio-status-message');
+    const retry=document.getElementById('portfolio-retry');
+    const loader=document.getElementById('portfolio-loader');
+    if(loader){
+        loader.classList.add('is-hidden');
+        loader.setAttribute('aria-hidden','true');
+    }
+    if(!status||!message||!retry)return;
+    message.textContent=`Unable to load ${dependency}. Check your connection and retry.`;
+    retry.onclick=()=>window.location.reload();
+    status.classList.add('is-visible');
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="window.handlePortfolioDependencyError('the data service')"></script>
+<script src="supabase-config.js" onerror="window.handlePortfolioDependencyError('portfolio configuration')"></script>
 <script>
 
     (function () {
@@ -2504,12 +2572,13 @@ body{
         const esc = (v) => String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
         const nl2br = (v) => esc(v).replace(/\n/g, '<br>');
         const fmtDate = (v, present=false) => present ? 'Present' : (v ? new Date(v + 'T00:00:00').toLocaleDateString(undefined, {month:'short', year:'numeric'}) : '');
+        const fallbackProfile = {name:'Ananthakrishnan P S',title:'Software Testing Portfolio'};
         const visible = (el) => { el.hidden = false; el.style.display = ''; };
         const hide = (el) => { el.hidden = true; };
         const sectionLink = (id, label) => `<li><a href="#${id}">${label}</a></li>`;
 
         function renderNav(profile, data) {
-            document.getElementById('admin-logo-trigger').textContent = profile?.name || 'PORTFOLIO';
+            document.getElementById('admin-logo-trigger').textContent = profile?.name || fallbackProfile.name;
             const links = [sectionLink('home','HOME')];
             if (profile?.about) links.push(sectionLink('about','ABOUT'));
             if (data.skills.length) links.push(sectionLink('skills','SKILLS'));
@@ -2523,8 +2592,8 @@ body{
         }
 
         function renderProfile(profile, data) {
-            const name = profile?.name || '';
-            const title = profile?.title || '';
+            const name = profile?.name || fallbackProfile.name;
+            const title = profile?.title || fallbackProfile.title;
             document.title = name ? `${name} - Portfolio` : 'Portfolio';
             document.getElementById('hero-name').textContent = name;
             if (window.startHeroTypewriter) window.startHeroTypewriter(name);
@@ -2641,14 +2710,22 @@ body{
             visible(document.getElementById('certificates'));
             document.getElementById('certificates-container').innerHTML = items.map((x,i)=>`<div class="skill-category scroll-animate" style="transition-delay:${i*0.08}s"><div class="skill-header"><div class="skill-icon"><i class="fas fa-certificate"></i></div><h3 class="skill-title">${esc(x.certification_name)}</h3></div><div class="timeline-company">${esc(x.organization)}${x.issue_date ? ` · ${fmtDate(x.issue_date)}`:''}</div>${x.description ? `<p class="project-description">${esc(x.description)}</p>`:''}</div>`).join('');
         }
-        function renderContact(profile, social) {
-            const has = Boolean(profile?.email || profile?.phone || profile?.location || social.length);
+        const fallbackContact = {
+            email: 'ananthps445@gmail.com',
+            linkedin: 'https://www.linkedin.com/in/ananthakrishnan-p-s-325118147'
+        };
+        function renderContact(profile, social, useFallback=false) {
+            const has = Boolean(profile?.email || profile?.phone || profile?.location || social.length || useFallback);
             if (!has) return;
             visible(document.getElementById('contact'));
             const methods=[];
-            if(profile.email) methods.push(`<a href="mailto:${esc(profile.email)}" class="contact-method-item" title="Email"><div class="contact-icon"><i class="fas fa-envelope"></i></div></a>`);
-            if(profile.phone) methods.push(`<a href="tel:${esc(profile.phone)}" class="contact-method-item" title="Call"><div class="contact-icon"><i class="fas fa-phone"></i></div></a>`);
+            const email=profile?.email || (useFallback ? fallbackContact.email : '');
+            if(email) methods.push(`<a href="mailto:${esc(email)}" class="contact-method-item" title="Email" aria-label="Email"><div class="contact-icon"><i class="fas fa-envelope"></i></div></a>`);
+            if(profile?.phone) methods.push(`<a href="tel:${esc(profile.phone)}" class="contact-method-item" title="Call" aria-label="Call"><div class="contact-icon"><i class="fas fa-phone"></i></div></a>`);
             social.forEach(s=>{const icon={'LinkedIn':'fab fa-linkedin','WhatsApp':'fab fa-whatsapp','GitHub':'fab fa-github','Instagram':'fab fa-instagram','Facebook':'fab fa-facebook','X / Twitter':'fab fa-x-twitter','Telegram':'fab fa-telegram','YouTube':'fab fa-youtube','Website':'fas fa-globe','Email':'fas fa-envelope'}[s.platform] || 'fas fa-link'; methods.push(`<a href="${esc(s.url)}" target="_blank" rel="noopener" class="contact-method-item" title="${esc(s.label||s.platform)}"><div class="contact-icon"><i class="${icon}"></i></div></a>`);});
+            if(useFallback && !social.some(s=>s.platform?.toLowerCase()==='linkedin')){
+                methods.push(`<a href="${fallbackContact.linkedin}" target="_blank" rel="noopener noreferrer" class="contact-method-item" title="LinkedIn" aria-label="LinkedIn"><div class="contact-icon"><i class="fab fa-linkedin"></i></div></a>`);
+            }
             document.getElementById('contact-info').innerHTML = `${methods.length?`<div class="contact-methods">${methods.join('')}</div>`:''}${profile.location?`<div class="contact-address"><h4>Address</h4><p>${nl2br(profile.location)}</p></div>`:''}`;
         }
         function setupBaseInteractions(){
@@ -2925,8 +3002,21 @@ body{
             
         }
         
+        function setPortfolioStatus(message){
+            const status=document.getElementById('portfolio-status');
+            const messageElement=document.getElementById('portfolio-status-message');
+            const retry=document.getElementById('portfolio-retry');
+            if(!status||!messageElement||!retry)return;
+            messageElement.textContent=message;
+            retry.onclick=()=>window.location.reload();
+            status.classList.add('is-visible');
+        }
+        function clearPortfolioStatus(){
+            document.getElementById('portfolio-status')?.classList.remove('is-visible');
+        }
         async function load(){
-            const results=await Promise.all([
+            const labels=['profile','experience','internships','education','certificates','projects','skills','social links','experience summary'];
+            const results=await Promise.allSettled([
                 supabase.from('profile').select('*').eq('profile_key','main').maybeSingle(),
                 supabase.from('experience').select('*').eq('is_visible',true).order('start_date',{ascending:false}),
                 supabase.from('internships').select('*').eq('is_visible',true).order('start_date',{ascending:false}),
@@ -2937,14 +3027,41 @@ body{
                 supabase.from('social_links').select('*').eq('is_visible',true).order('created_at',{ascending:false}),
                 supabase.rpc('get_total_experience')
             ]);
-            const [profileR,expR,internshipsR,eduR,certR,projR,skillsR,socialR,expTextR]=results;
-            for(const r of results){if(r.error) console.error(r.error);}
-            const data={experience:expR.data||[],internships:internshipsR.data||[],education:eduR.data||[],certificates:certR.data||[],projects:projR.data||[],skills:skillsR.data||[],social:socialR.data||[]};
-            const profile=profileR.data;
-            data.contact=Boolean(profile?.email||profile?.phone||profile?.location||data.social.length);
-            renderNav(profile,data); renderProfile(profile,data); renderAbout(profile,data,expTextR.data); renderSkills(data.skills); renderProjects(data.projects); renderExperience(data.experience); renderInternships(data.internships); renderEducation(data.education); renderCertificates(data.certificates); renderContact(profile,data.social); setupAdminTrigger(); initializeOriginalBehaviors();
-            const footer=document.querySelector('#footer p'); if(footer) footer.innerHTML=`&copy; ${new Date().getFullYear()} ${esc(profile?.name||'Portfolio')}. All rights reserved. | Designed for Excellence`;
+            const failures=[];
+            const dataFor=(index,fallback)=>{
+                const result=results[index];
+                if(result.status==='rejected'){
+                    console.error(`Unable to load ${labels[index]}`,result.reason);
+                    failures.push(labels[index]);
+                    return fallback;
+                }
+                if(result.value.error){
+                    console.error(`Unable to load ${labels[index]}`,result.value.error);
+                    failures.push(labels[index]);
+                    return fallback;
+                }
+                return result.value.data ?? fallback;
+            };
+            const profile=dataFor(0,fallbackProfile);
+            const experience=dataFor(1,[]);
+            const internships=dataFor(2,[]);
+            const education=dataFor(3,[]);
+            const certificates=dataFor(4,[]);
+            const projects=dataFor(5,[]);
+            const skills=dataFor(6,[]);
+            const social=dataFor(7,[]);
+            const experienceText=dataFor(8,null);
+            const data={experience,internships,education,certificates,projects,skills,social};
+            const contactDataUnavailable=failures.includes('profile')||failures.includes('social links');
+            data.contact=Boolean(profile?.email||profile?.phone||profile?.location||data.social.length||contactDataUnavailable);
+            renderNav(profile,data); renderProfile(profile,data); renderAbout(profile,data,experienceText); renderSkills(data.skills); renderProjects(data.projects); renderExperience(data.experience); renderInternships(data.internships); renderEducation(data.education); renderCertificates(data.certificates); renderContact(profile,data.social,contactDataUnavailable); setupAdminTrigger(); initializeOriginalBehaviors();
+            const footer=document.querySelector('#footer p'); if(footer) footer.innerHTML=`&copy; ${new Date().getFullYear()} ${esc(profile?.name||fallbackProfile.name)}. All rights reserved. | Designed for Excellence`;
             observeAnimations();
+            if(failures.length){
+                setPortfolioStatus('Some content could not load. Please try again.');
+            }else{
+                clearPortfolioStatus();
+            }
         }
         function observeAnimations(){const els=document.querySelectorAll('.scroll-animate,.timeline-item'); const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1}); els.forEach(x=>obs.observe(x));}
         function showToast(title,message,type='success'){const t=document.createElement('div');t.className=`toast-notification ${type}`;t.innerHTML=`<strong>${esc(title)}</strong><span>${esc(message)}</span>`;document.body.appendChild(t);setTimeout(()=>t.remove(),4000);}
@@ -2956,10 +3073,15 @@ body{
             }
         };
         const loaderTimeout=setTimeout(hideLoader,1800);
+        const slowLoadTimeout=setTimeout(()=>setPortfolioStatus('Portfolio data is taking longer than expected. Check your connection and retry.'),10000);
         load()
-            .catch(err=>console.error('Portfolio load failed',err))
+            .catch(err=>{
+                console.error('Portfolio load failed',err);
+                setPortfolioStatus('Portfolio data could not be loaded. Check your connection and retry.');
+            })
             .finally(()=>{
                 clearTimeout(loaderTimeout);
+                clearTimeout(slowLoadTimeout);
                 hideLoader();
             });
     })();
