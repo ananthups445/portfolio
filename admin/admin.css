@@ -1,14 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root{
-  --background:#f4f4f0; --surface:#fbfbf8; --card-bg:#f8f8f4; --text-primary:#151515; --text-secondary:#686866;
-  --accent:#b7f34a; --accent-strong:#8fcf20; --line:#d8d8d1; --line-strong:#bdbdb5; --danger:#c94b4b;
-  --glass:rgba(251,251,248,.82); --glass-border:rgba(21,21,21,.12); --shadow:0 18px 50px rgba(21,21,21,.08);
+  color-scheme:dark;
+  --background:#101110; --surface:#151615; --card-bg:#181918; --text-primary:#f2f2ec; --text-secondary:#92928c;
+  --accent:#b7f34a; --accent-strong:#c9ff67; --line:#2b2c29; --line-strong:#41423d; --danger:#ff7676;
+  --glass:rgba(21,22,21,.84); --glass-border:rgba(242,242,236,.13); --shadow:0 22px 60px rgba(0,0,0,.28);
   --mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,monospace; --display:'Space Grotesk',Inter,system-ui,sans-serif;
   --ease:cubic-bezier(.16,1,.3,1); --transition:all .35s var(--ease);
-}
-@media (prefers-color-scheme:dark){
-  :root{--background:#101110;--surface:#151615;--card-bg:#181918;--text-primary:#f2f2ec;--text-secondary:#92928c;--accent:#b7f34a;--accent-strong:#c9ff67;--line:#2b2c29;--line-strong:#41423d;--danger:#ff7676;--glass:rgba(21,22,21,.84);--glass-border:rgba(242,242,236,.13);--shadow:0 22px 60px rgba(0,0,0,.28)}
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0}

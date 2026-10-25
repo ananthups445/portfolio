@@ -7,12 +7,7 @@
 <div class="modal-backdrop" id="idleModal"><div class="modal"><h3>Session timeout</h3><p>You have been inactive for 15 minutes.</p><p>Click <strong>Continue</strong> to keep the admin session active. Otherwise you will be logged out in <span class="countdown" id="countdown">30</span> seconds.</p><button class="btn btn-primary" id="continueSession">Continue</button></div></div>
 <div class="image-preview-backdrop" id="imagePreviewModal" aria-hidden="true"><div class="image-preview-dialog"><button class="image-preview-close" id="closeImagePreview" type="button" aria-label="Close preview">&times;</button><img id="imagePreviewLarge" alt="Image preview"><iframe id="resumePreviewLarge" title="Resume preview"></iframe></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../supabase-config.js"></script><script>
-const htmlElement = document.documentElement;
-// Admin uses the same automatic light/dark preference as the public portfolio.
-const mediaTheme = window.matchMedia('(prefers-color-scheme: dark)');
-function syncBrowserTheme(){ htmlElement.dataset.theme = mediaTheme.matches ? 'dark' : 'light'; }
-syncBrowserTheme();
-mediaTheme.addEventListener?.('change', syncBrowserTheme);
+document.documentElement.dataset.theme = 'dark';
 
 const {createClient}=supabase;const client=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,storage:window.sessionStorage,autoRefreshToken:true,detectSessionInUrl:true}});
 const ADMIN_LOGIN_TICKET='portfolio_admin_login_ticket';

@@ -31,12 +31,7 @@
 </main>
 <footer class="admin-footer">Private administration area</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../supabase-config.js"></script><script>
-const htmlElement = document.documentElement;
-// Admin uses the same automatic light/dark preference as the public portfolio.
-const mediaTheme = window.matchMedia('(prefers-color-scheme: dark)');
-function syncBrowserTheme(){ htmlElement.dataset.theme = mediaTheme.matches ? 'dark' : 'light'; }
-syncBrowserTheme();
-mediaTheme.addEventListener?.('change', syncBrowserTheme);
+document.documentElement.dataset.theme = 'dark';
 
 const {createClient}=supabase;const client=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,storage:window.sessionStorage,autoRefreshToken:true,detectSessionInUrl:true}});
 const ADMIN_LOGIN_TICKET='portfolio_admin_login_ticket';

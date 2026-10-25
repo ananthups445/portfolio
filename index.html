@@ -1913,16 +1913,11 @@ nav{background:rgba(7,7,7,.84)!important;border-bottom:1px solid var(--t0-line)!
   --ui-bg:#070707;--ui-surface:#0d0d0d;--ui-surface-2:#111111;--ui-text:#f2f0e9;--ui-muted:#8c8c84;
   --ui-line:#292925;--ui-accent:#d8ff45;--ui-input:#090909;--ui-overlay:rgba(0,0,0,.86);
 }
-@media (prefers-color-scheme: light){
-  :root{
-    --ui-bg:#f5f5f1;--ui-surface:#ffffff;--ui-surface-2:#eeeeea;--ui-text:#11120f;--ui-muted:#62645d;
-    --ui-line:#d7d8d0;--ui-accent:#4f6800;--ui-input:#ffffff;--ui-overlay:rgba(245,245,241,.88);
-  }
-}
 html,body{background:var(--ui-bg)!important;color:var(--ui-text)!important}
 body:before{opacity:.025;background-image:linear-gradient(rgba(80,80,70,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(80,80,70,.28) 1px,transparent 1px);mix-blend-mode:multiply}
 body:after{background:radial-gradient(circle at 50% 0%,transparent 0,rgba(0,0,0,.03) 55%,rgba(0,0,0,.12) 100%)}
-@media (prefers-color-scheme: dark){body:before{opacity:.035;mix-blend-mode:screen}body:after{background:radial-gradient(circle at 50% 0%,transparent 0,rgba(0,0,0,.12) 55%,rgba(0,0,0,.55) 100%)}}
+body:before{opacity:.035;mix-blend-mode:screen}
+body:after{background:radial-gradient(circle at 50% 0%,transparent 0,rgba(0,0,0,.12) 55%,rgba(0,0,0,.55) 100%)}
 nav{background:color-mix(in srgb,var(--ui-bg) 86%,transparent)!important;border-color:var(--ui-line)!important}
 .logo,.nav-links a,.mobile-menu-btn{color:var(--ui-text)!important}.nav-links a:hover,.nav-links a.active{color:var(--ui-accent)!important}
 .hero,.section{background:var(--ui-bg)!important;border-color:var(--ui-line)!important}
@@ -1956,12 +1951,6 @@ nav{background:color-mix(in srgb,var(--ui-bg) 86%,transparent)!important;border-
   --t0-bg:var(--ui-bg);--t0-surface:var(--ui-surface);--t0-text:var(--ui-text);
   --t0-muted:var(--ui-muted);--t0-line:var(--ui-line);--t0-accent:var(--ui-accent);
   --t0-ease:cubic-bezier(.22,1,.36,1);
-}
-@media (prefers-color-scheme: light){
-  :root{--t0-bg:#f4f4ef;--t0-surface:#fbfbf8;--t0-text:#10110f;--t0-muted:#666960;--t0-line:#d8d9d2;--t0-accent:#526d00;}
-}
-@media (prefers-color-scheme: dark){
-  :root{--t0-bg:#080808;--t0-surface:#0d0d0d;--t0-text:#f0efe8;--t0-muted:#8c8c84;--t0-line:#292925;--t0-accent:#d8ff45;}
 }
 /* No reference-site labels: keep the visual language, not its branding. */
 .hero-content:before,.section:before{display:none!important;content:none!important}
@@ -2004,16 +1993,10 @@ nav,.nav-links,.skill-category,.project-card,.contact-info,.contact-form,.stat-c
 
 /* ===== DISTINCTIVE PORTFOLIO VISUAL PASS ===== */
 :root{
-  --ui-bg:#f4f2eb;--ui-surface:#fbfaf6;--ui-surface-2:#efede5;--ui-text:#171815;
-  --ui-muted:#666861;--ui-line:#d6d4ca;--ui-accent:#526b00;--ui-accent-soft:rgba(82,107,0,.10);
-  --ui-shadow:rgba(20,22,14,.10);
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --ui-bg:#070807;--ui-surface:#0d0f0d;--ui-surface-2:#121512;--ui-text:#f0f1e9;
-    --ui-muted:#969a91;--ui-line:#282c27;--ui-accent:#d8ff45;--ui-accent-soft:rgba(216,255,69,.08);
-    --ui-shadow:rgba(0,0,0,.5);
-  }
+  color-scheme:dark;
+  --ui-bg:#070807;--ui-surface:#0d0f0d;--ui-surface-2:#121512;--ui-text:#f0f1e9;
+  --ui-muted:#969a91;--ui-line:#282c27;--ui-accent:#d8ff45;--ui-accent-soft:rgba(216,255,69,.08);
+  --ui-shadow:rgba(0,0,0,.5);
 }
 html,body{background:var(--ui-bg)!important;color:var(--ui-text)!important}
 body:before,body:after{display:none!important}
@@ -2057,33 +2040,6 @@ footer{background:var(--ui-bg)!important;color:var(--ui-muted)!important;border-
 #hero-name.typing:after{content:"";display:inline-block;width:2px;height:.78em;background:var(--ui-accent);margin-left:.16em;vertical-align:-.04em;animation:caretBlink .75s steps(1,end) infinite}
 #hero-name.typing.done:after{animation:none;opacity:.65}
 @keyframes caretBlink{50%{opacity:0}}
-
-/* Light theme contrast pass: keep the warm surface, strengthen content and structure. */
-@media (prefers-color-scheme: light){
-    :root{
-        --primary:#18210d;
-        --secondary:#3d5200;
-        --accent:#526f00;
-        --text-primary:#11140e;
-        --text-secondary:#4f564b;
-        --ui-bg:#f7f7f2;
-        --ui-surface:#ffffff;
-        --ui-surface-2:#e9ebe3;
-        --ui-text:#11140e;
-        --ui-muted:#4f564b;
-        --ui-line:#aeb5a5;
-        --ui-accent:#3f5d00;
-        --ui-input:#ffffff;
-        --ui-shadow:rgba(20,25,12,.14);
-    }
-    .section-subtitle,.hero-subtitle,.stat-label,.skill-item,.project-description,
-    .timeline-description,.timeline-company,.contact-address p,.modal-info p,
-    .modal-info li,.modal-type,.scroll-hint,.modal-scroll-hint{color:var(--ui-muted)!important}
-    .section-header,.skill-header,.form-group input,.form-group textarea,
-    .btn-secondary,.btn-outline,.contact-method-item,.project-modal-content,
-    .modal-close,.modal-tags span{border-color:var(--ui-line)!important}
-    .stats-grid,.skills-container,.projects-grid,.contact-methods{background:var(--ui-line)!important}
-}
 
 /* Typography clarity pass: sharpen rendering and protect small text from crowding. */
 html{
@@ -3093,10 +3049,6 @@ body{
   --lux-grid-strong:rgba(120,125,110,.13);
   --lux-glow:rgba(216,255,69,.055);
 }
-@media(prefers-color-scheme:light){
-  :root{--lux-grid:rgba(35,38,30,.075);--lux-grid-strong:rgba(35,38,30,.12);--lux-glow:rgba(79,104,0,.045)}
-}
-
 /* Keep the navigation deliberately single-tone — no gradient/two-tone header. */
 nav{
   background:var(--ui-bg)!important;
@@ -3147,15 +3099,6 @@ body:before,body:after{display:none!important}
   display:none!important;
   animation:none!important;
 }
-@media(prefers-color-scheme:light){
-  .hero-bg{
-    background-image:
-      linear-gradient(to right,color-mix(in srgb,var(--ui-text) 7%,transparent) 1px,transparent 1px),
-      linear-gradient(to bottom,color-mix(in srgb,var(--ui-text) 7%,transparent) 1px,transparent 1px),
-      radial-gradient(circle at 76% 38%,color-mix(in srgb,var(--ui-accent) 3%,transparent),transparent 30%)!important;
-  }
-}
-
 .section-header,.about-grid,.skills-container,.projects-grid,.timeline,.contact-grid{
   position:relative;
   z-index:1;
@@ -3267,12 +3210,6 @@ body:before,body:after{display:none!important}
   background-color:color-mix(in srgb,var(--ui-surface) 94%,var(--ui-bg))!important;
   background-image:linear-gradient(to bottom,rgba(255,255,255,.018),transparent 28%)!important;
 }
-@media(prefers-color-scheme:light){
-  .stat-card,.skill-category,.project-card,.contact-info,.contact-form{
-    background-image:linear-gradient(to bottom,rgba(0,0,0,.018),transparent 28%)!important;
-  }
-}
-
 .stats-grid,
 .stats-grid .stat-card {
     background: transparent !important;
@@ -3681,17 +3618,8 @@ nav {
   line-height: 1.7 !important;
 }
 
-/* Light/dark mode continues to follow the browser/OS preference. */
-@media (prefers-color-scheme: light) {
-  nav {
-    box-shadow: 0 14px 42px rgba(20, 22, 14, .09) !important;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  nav {
-    box-shadow: 0 14px 42px rgba(0, 0, 0, .28) !important;
-  }
+nav {
+  box-shadow: 0 14px 42px rgba(0, 0, 0, .28) !important;
 }
 
 @media (max-width: 900px) {
